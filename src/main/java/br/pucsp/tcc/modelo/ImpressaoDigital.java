@@ -5,7 +5,17 @@ import org.apache.commons.logging.LogFactory;
 
 public class ImpressaoDigital extends Identificacao
 {
-    public ImpressaoDigital() {
+    private String info;
+    
+    public ImpressaoDigital(String info) {
+        this.setInfo(info);
+    }
+    
+    public String getInfo() {
+        return info;
+    }
+    public void setInfo(String hash) {
+        this.info = hash;
     }
     
     // configurar o logger

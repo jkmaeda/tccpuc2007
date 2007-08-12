@@ -5,17 +5,8 @@ import org.apache.commons.logging.LogFactory;
 
 public abstract class Cliente
 {
-    private String nome;
-    
     private Conta conta;
     private Identificacao identificacao;
-    
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
     
     public Conta getConta() {
         return conta;
