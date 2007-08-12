@@ -1,8 +1,5 @@
 package br.pucsp.tcc.modelo;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -12,10 +9,7 @@ public class ItemCardapio
     private String nome;
     private String descricao;
     
-    private List<Ingrediente> ingredientes;
-    
     public ItemCardapio() {
-        this.setIngredientes(new LinkedList<Ingrediente>());
     }
     
     public double getPreco() {
@@ -37,13 +31,6 @@ public class ItemCardapio
     }
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-    
-    public List<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-    public void setIngredientes(List<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
     }
     
     // configurar o logger
