@@ -11,6 +11,7 @@ public class Pedido
     private List<ItemPedido> itensPedido;
     
     public Pedido() {
+        logger.debug("Criando novo pedido");
         this.setItensPedido(new LinkedList<ItemPedido>());
     }
     
@@ -19,6 +20,10 @@ public class Pedido
     }
     public void setItensPedido(List<ItemPedido> itensPedido) {
         this.itensPedido = itensPedido;
+    }
+    
+    public void finalizar() {
+        logger.debug("Pedido finalizado");
     }
     
     // configurar o logger
