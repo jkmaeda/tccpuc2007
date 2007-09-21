@@ -21,6 +21,19 @@ public class Conta
         this.pedidos = pedidos;
     }
     
+    public double saldo()
+    {
+        double saldo = 0;
+        for(Pedido pedido : this.getPedidos())
+        {
+            for(ItemPedido item : pedido.getItensPedido())
+            {
+                saldo+= item.getQuantidade() * item.getItemCardapio().getPreco();
+            }
+        }
+        return saldo;
+    }
+    
     // configurar o logger
     static Log logger = LogFactory.getLog(Conta.class);
 }
