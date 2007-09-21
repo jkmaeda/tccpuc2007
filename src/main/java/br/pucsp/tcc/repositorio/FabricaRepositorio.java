@@ -12,4 +12,14 @@ public class FabricaRepositorio
     {
         return null;
     }
+    
+    public RepositorioCliente getRepCliente()
+    {
+        return null;
+    }
+    
+    public RepositorioConta getRepConta()
+    {
+        return null;
+    }
 }

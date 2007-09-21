@@ -5,9 +5,14 @@ import br.pucsp.tcc.exception.OperacaoInvalidaException;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.Pedido;
+import br.pucsp.tcc.repositorio.FabricaRepositorio;
+import br.pucsp.tcc.repositorio.RepositorioPedido;
 
 public class GerenciadorPedidoImpl implements GerenciadorPedido
 {
+    FabricaRepositorio fabRepositorios;
+    RepositorioPedido repPedido;
+    
     @Override
     public void registrarPedido(Cliente cliente, Pedido pedido)
             throws OperacaoInvalidaException
@@ -20,11 +25,14 @@ public class GerenciadorPedidoImpl implements GerenciadorPedido
         
         // registrar pedido na conta do cliente
         conta.getPedidos().add(pedido);
+        
+        // persistir informações
+        repPedido.salvar(pedido);
     }
     
     @Override
-    public void finalizarPedido(Pedido pedido)
-    {
+    public void finalizarPedido(Pedido pedido) {
         pedido.finalizar();
+        repPedido.salvar(pedido);
     }
 }

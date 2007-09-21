@@ -3,9 +3,19 @@ package br.pucsp.tcc.controle.impl;
 import br.pucsp.tcc.exception.OperacaoInvalidaException;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.Conta;
+import br.pucsp.tcc.repositorio.FabricaRepositorio;
+import br.pucsp.tcc.repositorio.RepositorioConta;
 
 public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorConta
 {
+    FabricaRepositorio fabRepositorios;
+    RepositorioConta repConta;
+    
+    public GerenciadorContaImpl() {
+        fabRepositorios = new FabricaRepositorio();
+        repConta = fabRepositorios.getRepConta();
+    }
+    
     @Override
     public void abrirConta(Cliente cliente) throws OperacaoInvalidaException
     {
@@ -20,6 +30,9 @@ public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorCo
         
         // registrar a nova conta no cliente
         cliente.setConta(novaConta);
+        
+        // persistir informações
+        repConta.salvar(conta);
     }
 
     @Override
@@ -49,5 +62,8 @@ public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorCo
         
         // fechar conta
         cliente.setConta(null);
+        
+        // persistir informações
+        repConta.salvar(conta);
     }
 }

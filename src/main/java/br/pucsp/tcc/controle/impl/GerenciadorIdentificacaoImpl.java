@@ -6,17 +6,10 @@ import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.modelo.NumeroMesa;
 import br.pucsp.tcc.modelo.TipoIdentificacao;
-import br.pucsp.tcc.repositorio.FabricaRepositorio;
-import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
 
 public class GerenciadorIdentificacaoImpl implements GerenciadorIdentificacao
 {
-    FabricaRepositorio fabRepositorios;
-    RepositorioIdentificacao repIdentificacao;
-    
     public GerenciadorIdentificacaoImpl() {
-        fabRepositorios = new FabricaRepositorio();
-        repIdentificacao = fabRepositorios.getRepIdentificacao();
     }
     
     @Override

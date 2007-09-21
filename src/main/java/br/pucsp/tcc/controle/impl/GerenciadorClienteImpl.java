@@ -5,16 +5,19 @@ import br.pucsp.tcc.exception.IdentificacaoInvalidaException;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
+import br.pucsp.tcc.repositorio.RepositorioCliente;
 import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
 
 public class GerenciadorClienteImpl implements GerenciadorCliente
 {
     FabricaRepositorio fabRepositorios;
     RepositorioIdentificacao repIdentificacao;
+    RepositorioCliente repCliente;
     
     public GerenciadorClienteImpl() {
         fabRepositorios = new FabricaRepositorio();
         repIdentificacao = fabRepositorios.getRepIdentificacao();
+        repCliente = fabRepositorios.getRepCliente();
     }
     
     @Override
@@ -31,6 +34,9 @@ public class GerenciadorClienteImpl implements GerenciadorCliente
         ClienteIndividual cliente = new ClienteIndividual();
         cliente.setNome(nome);
         cliente.setIdentificacao(digital);
+        
+        // persistir informações
+        repCliente.salvar(cliente);
         
         return cliente;
     }
