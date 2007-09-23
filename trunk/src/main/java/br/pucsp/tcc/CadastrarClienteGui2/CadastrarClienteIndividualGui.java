@@ -1,4 +1,4 @@
-package br.pucsp.tcc.CadastrarClienteGui;
+package br.pucsp.tcc.CadastrarClienteGui2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
