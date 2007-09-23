@@ -16,7 +16,6 @@ public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorCo
         repConta = fabRepositorios.getRepConta();
     }
     
-    @Override
     public void abrirConta(Cliente cliente) throws OperacaoInvalidaException
     {
         // verificar se o cliente já possui uma conta
@@ -35,7 +34,6 @@ public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorCo
         repConta.salvar(conta);
     }
 
-    @Override
     public double consultarSaldoDaConta(Cliente cliente)
             throws OperacaoInvalidaException
     {
@@ -50,7 +48,6 @@ public class GerenciadorContaImpl implements br.pucsp.tcc.controle.GerenciadorCo
         return saldo;
     }
 
-    @Override
     public void fecharConta(Cliente cliente)
             throws OperacaoInvalidaException
     {

@@ -20,7 +20,6 @@ public class GerenciadorClienteImpl implements GerenciadorCliente
         repCliente = fabRepositorios.getRepCliente();
     }
     
-    @Override
     public ClienteIndividual cadastrarClienteIndividual(
             ImpressaoDigital digital, String nome)
             throws IdentificacaoInvalidaException
