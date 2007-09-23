@@ -23,7 +23,7 @@ public abstract class Tela extends JFrame {
   	    comp.setLocation(centerX, centerY);
 	}
 
-	protected void exibir() {
+	public void exibir() {
 		this.setVisible(true);
 	}
 
