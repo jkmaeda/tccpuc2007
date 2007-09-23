@@ -10,5 +10,6 @@ public interface RepositorioIdentificacao
      * @param id  a identificação a ser procurada
      * @return true caso a identificação exista, falso caso contrário
      */
-    boolean existeIdentificacao(Identificacao id);
+    public boolean existeIdentificacao(Identificacao id);    
+    public Identificacao obterIdentificacao(Object id);
 }

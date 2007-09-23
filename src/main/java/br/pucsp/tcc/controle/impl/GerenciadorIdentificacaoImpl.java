@@ -12,7 +12,6 @@ public class GerenciadorIdentificacaoImpl implements GerenciadorIdentificacao
     public GerenciadorIdentificacaoImpl() {
     }
     
-    @Override
     public Identificacao gerarIdentificacao(String info,
             TipoIdentificacao tipo) throws OperacaoInvalidaException
     {

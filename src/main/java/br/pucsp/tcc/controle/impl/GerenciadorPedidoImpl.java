@@ -13,7 +13,6 @@ public class GerenciadorPedidoImpl implements GerenciadorPedido
     FabricaRepositorio fabRepositorios;
     RepositorioPedido repPedido;
     
-    @Override
     public void registrarPedido(Cliente cliente, Pedido pedido)
             throws OperacaoInvalidaException
     {
@@ -30,7 +29,6 @@ public class GerenciadorPedidoImpl implements GerenciadorPedido
         repPedido.salvar(pedido);
     }
     
-    @Override
     public void finalizarPedido(Pedido pedido) {
         pedido.finalizar();
         repPedido.salvar(pedido);
