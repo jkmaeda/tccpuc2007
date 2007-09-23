@@ -1,6 +1,6 @@
 package br.pucsp.tcc.cadastrarCliente;
 
-import br.pucsp.tcc.CadastrarClienteGui.CadastrarClienteIndividualGui;
+import br.pucsp.tcc.cadastrarClienteGui.CadastrarClienteIndividualGui;
 
 public class CadastradorClienteIndividualImpl implements CadastradorCliente {
 
