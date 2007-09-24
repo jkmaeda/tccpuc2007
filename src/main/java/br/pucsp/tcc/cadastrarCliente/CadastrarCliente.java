@@ -1,8 +1,8 @@
 package br.pucsp.tcc.cadastrarCliente;
 
-import br.pucsp.tcc.cadastrarClienteGui.CadastrarClienteGui;
+import br.pucsp.tcc.modelo.Identificacao;
 
-public class CadastrarCliente implements CadastradorCliente {
+public class CadastrarCliente {
 
 	private FactoryCadastradorCliente factoryCadastradorCliente;
 
@@ -10,8 +10,10 @@ public class CadastrarCliente implements CadastradorCliente {
 		this.factoryCadastradorCliente = factoryCadastradorCliente;
 	}
 	
-	public void cadastrarCliente() {
-		new CadastrarClienteGui(factoryCadastradorCliente);
+	public void cadastrar(Identificacao identificacao) {
+		CadastradorCliente cadastradorCliente = factoryCadastradorCliente.fabricarCadastradorCliente();
+		cadastradorCliente.setIdentificacao(identificacao);
+		cadastradorCliente.solicitarInformacoesUsuario();
 	}
 	
 }

@@ -1,9 +1,14 @@
 package br.pucsp.tcc.cadastrarCliente;
 
-public class Main {
+import br.pucsp.tcc.modelo.Identificacao;
+import br.pucsp.tcc.modelo.ImpressaoDigital;
+
+class Main {
 
 	public static void main(String[] args) {
-		CadastradorCliente cadastradorCliente = new CadastrarCliente(new FactoryCadastradorCliente());
-		cadastradorCliente.cadastrarCliente();
+		FactoryCadastradorCliente factoryCadastradorCliente = new FactoryCadastradorClienteIndividual();
+		Identificacao identificacao = new ImpressaoDigital("123");
+		CadastrarCliente cadastrarCliente = new CadastrarCliente(factoryCadastradorCliente);
+		cadastrarCliente.cadastrar(identificacao);
 	}
 }
