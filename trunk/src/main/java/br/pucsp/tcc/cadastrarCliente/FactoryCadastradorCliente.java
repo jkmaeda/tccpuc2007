@@ -1,12 +1,7 @@
 package br.pucsp.tcc.cadastrarCliente;
 
-public class FactoryCadastradorCliente {
+public interface FactoryCadastradorCliente {
 
-	public CadastradorCliente fabricarCadastradorClienteMesa() {
-		return new CadastradorClienteMesaImpl(this);
-	}
+	public CadastradorCliente fabricarCadastradorCliente();
 	
-	public CadastradorCliente fabricarCadastradorClienteIndividual() {
-		return new CadastradorClienteIndividualImpl();
-	}
 }

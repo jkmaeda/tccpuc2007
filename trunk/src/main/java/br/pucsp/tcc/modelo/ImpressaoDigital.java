@@ -18,6 +18,10 @@ public class ImpressaoDigital extends Identificacao
         this.info = hash;
     }
     
+    public String toString() {
+    	return info;
+    }
+    
     // configurar o logger
     static Log logger = LogFactory.getLog(ImpressaoDigital.class);
 }
