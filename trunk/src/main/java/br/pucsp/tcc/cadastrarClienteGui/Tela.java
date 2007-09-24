@@ -3,10 +3,9 @@ package br.pucsp.tcc.cadastrarClienteGui;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
 
-public abstract class Tela extends JFrame {
-
+public abstract class Tela {
+	
 	/**
 	 * This is the default constructor
 	 */
@@ -14,17 +13,14 @@ public abstract class Tela extends JFrame {
 		super();
 	}
 	
-	protected void centralizar(){
-		Component comp = this;
+	protected void centralizar(Component component){
   	    Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-  	    Dimension compSize = comp.getSize();
+  	    Dimension compSize = component.getSize();
   	    int centerX = (screenDim.width - compSize.width) >> 1;
   	    int centerY = (screenDim.height - compSize.height) >> 1;
-  	    comp.setLocation(centerX, centerY);
+  	    component.setLocation(centerX, centerY);
 	}
 
-	public void exibir() {
-		this.setVisible(true);
-	}
+	public abstract void exibir();
 
 }
