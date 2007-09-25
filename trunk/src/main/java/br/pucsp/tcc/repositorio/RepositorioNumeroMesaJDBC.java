@@ -13,8 +13,19 @@ public class RepositorioNumeroMesaJDBC implements RepositorioIdentificacao {
 	private ResultSet rs;
 	
 	public boolean existeIdentificacao(Identificacao id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ret = false;
+		NumeroMesa identificacao = (NumeroMesa) id;
+		String sql = "select 1 from identificacao where numeroMesa = ?";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, identificacao.getNumero());
+			rs = stmt.executeQuery();
+			ret = rs.next();			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}				
+		return ret;		
 	}
 
 	public Identificacao obterIdentificacao(Object id) {
