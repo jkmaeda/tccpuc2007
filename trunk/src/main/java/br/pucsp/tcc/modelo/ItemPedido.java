@@ -5,8 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class ItemPedido
 {
-    private int quantidade;
-    
+    private int quantidade;    
     private ItemCardapio itemCardapio;
     
     public ItemPedido() {

@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 public class Conta
 {
     private List<Pedido> pedidos;
+    private String observacao;
     
     public Conta() {
         this.setPedidos(new LinkedList<Pedido>());
@@ -36,4 +37,12 @@ public class Conta
     
     // configurar o logger
     static Log logger = LogFactory.getLog(Conta.class);
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 }
