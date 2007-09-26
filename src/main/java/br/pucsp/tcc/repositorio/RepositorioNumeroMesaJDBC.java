@@ -46,4 +46,30 @@ public class RepositorioNumeroMesaJDBC implements RepositorioIdentificacao {
 		}				
 		return ret;
 	}
+
+	public void salvar(Identificacao id) {		
+		NumeroMesa identificacao = (NumeroMesa) id;
+		String sql = "insert into identificacao values (?,null,1)";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, identificacao.getNumero());
+			stmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+	}
+
+	public void excluir(Identificacao id) {
+		NumeroMesa identificacao = (NumeroMesa) id;
+		String sql = "delete from identificacao where numeroMesa = ?";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, identificacao.getNumero());
+			stmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}					
+	}
 }
