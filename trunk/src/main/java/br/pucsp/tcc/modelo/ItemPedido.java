@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class ItemPedido
 {
+	private int id;
     private int quantidade;    
     private ItemCardapio itemCardapio;
     
@@ -27,4 +28,12 @@ public class ItemPedido
     
     // configurar o logger
     static Log logger = LogFactory.getLog(ItemPedido.class);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

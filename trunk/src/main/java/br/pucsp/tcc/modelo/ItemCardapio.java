@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class ItemCardapio
 {
+	private int id;
     private double preco;
     private String nome;
     private String descricao;
@@ -35,4 +36,12 @@ public class ItemCardapio
     
     // configurar o logger
     static Log logger = LogFactory.getLog(Funcionario.class);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
