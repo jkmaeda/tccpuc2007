@@ -1,5 +1,7 @@
 package br.pucsp.tcc.repositorio;
 
+import br.pucsp.tcc.modelo.TipoIdentificacao;
+
 /**
  * Uma fábrica de repositórios.
  * 
@@ -8,9 +10,14 @@ package br.pucsp.tcc.repositorio;
  */
 public class FabricaRepositorio
 {
-    public RepositorioIdentificacao getRepIdentificacao()
+    public RepositorioIdentificacao getRepIdentificacao(TipoIdentificacao identificacao)
     {
-        return null;
+    	RepositorioIdentificacao repositorio = null;
+    	switch (identificacao) {
+    		case MESA:  repositorio = new RepositorioNumeroMesaJDBC(); break;
+    		case IMPRESSAO_DIGITAL: repositorio = new RepositorioImpressaoDigitalJDBC();
+    	}
+        return repositorio;
     }
     
     public RepositorioCliente getRepCliente()
