@@ -4,6 +4,7 @@ import br.pucsp.tcc.controle.GerenciadorCliente;
 import br.pucsp.tcc.exception.IdentificacaoInvalidaException;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
+import br.pucsp.tcc.modelo.TipoIdentificacao;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
 import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
@@ -16,7 +17,7 @@ public class GerenciadorClienteImpl implements GerenciadorCliente
     
     public GerenciadorClienteImpl() {
         fabRepositorios = new FabricaRepositorio();
-        repIdentificacao = fabRepositorios.getRepIdentificacao();
+        repIdentificacao = fabRepositorios.getRepIdentificacao(TipoIdentificacao.IMPRESSAO_DIGITAL);
         repCliente = fabRepositorios.getRepCliente();
     }
     
