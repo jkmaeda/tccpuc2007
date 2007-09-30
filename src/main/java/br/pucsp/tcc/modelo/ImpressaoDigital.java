@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class ImpressaoDigital extends Identificacao
 {
+	private int id;
     private String info;
     
     public ImpressaoDigital(String info) {
@@ -24,4 +25,12 @@ public class ImpressaoDigital extends Identificacao
     
     // configurar o logger
     static Log logger = LogFactory.getLog(ImpressaoDigital.class);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
