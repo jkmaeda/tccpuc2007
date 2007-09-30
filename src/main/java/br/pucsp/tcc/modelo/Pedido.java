@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Pedido
 {
+	private int id;
     private List<ItemPedido> itensPedido;
     
     public Pedido() {
@@ -28,4 +29,12 @@ public class Pedido
     
     // configurar o logger
     static Log logger = LogFactory.getLog(Pedido.class);
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

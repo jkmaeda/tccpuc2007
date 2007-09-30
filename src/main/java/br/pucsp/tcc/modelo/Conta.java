@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Conta
 {
+	private int id;
     private List<Pedido> pedidos;
     private String observacao;
     
@@ -44,5 +45,13 @@ public class Conta
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
