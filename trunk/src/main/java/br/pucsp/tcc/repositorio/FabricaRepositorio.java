@@ -29,4 +29,9 @@ public class FabricaRepositorio
     {
         return new RepositorioContaJDBC();
     }
+    
+    public RepositorioItemCardapio getRepCardapio()
+    {
+        return new RepositorioItemCardapioJDBC();
+    }
 }
