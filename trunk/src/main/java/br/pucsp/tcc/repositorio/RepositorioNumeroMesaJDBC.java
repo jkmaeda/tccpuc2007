@@ -47,7 +47,7 @@ public class RepositorioNumeroMesaJDBC implements RepositorioIdentificacao {
 		return ret;
 	}
 
-	public void salvar(Identificacao id) {		
+	public int salvar(Identificacao id) {		
 		NumeroMesa identificacao = (NumeroMesa) id;
 		String sql = "insert into identificacao values (?,null,1)";
 		try {
@@ -57,7 +57,8 @@ public class RepositorioNumeroMesaJDBC implements RepositorioIdentificacao {
 			stmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}				
+		}	
+		return 0; // não vai ser usado ... 
 	}
 
 	public void excluir(Identificacao id) {

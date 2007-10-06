@@ -1,8 +1,13 @@
 package br.pucsp.tcc.repositorio;
 
+import java.util.List;
+
 import br.pucsp.tcc.modelo.Cliente;
 
 public interface RepositorioCliente
 {
-    void salvar(Cliente cliente);
+    public void salvar(Cliente cliente);
+    public Cliente obterPorNome(String nome);
+    public Cliente obterPorId(int id);
+    public List<Cliente> obterClientes();
 }

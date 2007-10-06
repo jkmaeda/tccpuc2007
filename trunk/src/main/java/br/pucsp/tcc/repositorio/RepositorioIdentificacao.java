@@ -21,7 +21,7 @@ public interface RepositorioIdentificacao
      * Insere uma identificação 
      * @param id Identificação a ser inserida
      */
-    public void salvar(Identificacao id);
+    public int salvar(Identificacao id);
     /**
      * Exclui uma identificacao
      * @param id Identificacao a ser excluida
