@@ -63,16 +63,25 @@ public class RepositorioImpressaoDigitalJDBC
 		return ret;
 	}
 
-	public void salvar(Identificacao id) {
+	public int salvar(Identificacao id) {
 		ImpressaoDigital identificacao = (ImpressaoDigital) id;
+		int identificacaoID = 0;
 		String sql = "insert into identificacao values (null,?,2)";
 		try {
 			conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, identificacao.getInfo());
 			stmt.execute();
+			
+			sql = "select max(identificacaoID) as identificacaoID from Identificacao";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			rs.next();
+			identificacaoID = rs.getInt("identificacaoID");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}				
+		}	
+		return identificacaoID;
 	}
 }
