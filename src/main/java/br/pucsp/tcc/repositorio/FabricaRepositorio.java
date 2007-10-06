@@ -22,11 +22,11 @@ public class FabricaRepositorio
     
     public RepositorioCliente getRepCliente()
     {
-        return null;
+        return new RepositorioClienteJDBC();
     }
     
     public RepositorioConta getRepConta()
     {
-        return null;
+        return new RepositorioContaJDBC();
     }
 }
