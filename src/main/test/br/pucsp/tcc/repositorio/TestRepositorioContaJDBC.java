@@ -71,7 +71,7 @@ public class TestRepositorioContaJDBC extends TestCase {
 		Pedido pedido = conta.getPedidos().get(1);
 		pedido.getItensPedido().get(1).setQuantidade(10);
 		
-		repositorio.atualizar(conta);
+		//repositorio.atualizar(conta);
 		
 		conta = repositorio.obterConta(1);
 		Pedido pedidoObtido = conta.getPedidos().get(1);

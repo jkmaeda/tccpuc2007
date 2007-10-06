@@ -162,34 +162,13 @@ public class RepositorioContaJDBC implements RepositorioConta{
 		}
 	}
 
-	public void atualizar(Conta conta) {
-		String sql = "";
-		try {
-			// atualiza a conta
-			sql = "update Conta set observacao = ? where contaID = ?";
-			conn = DBConnection.getConnection();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, conta.getObservacao());
-			stmt.setInt(2, conta.getId());
-			stmt.execute();
-			
-			// recupera os pedidos e atualiza cada item
-			List<Pedido> pedidos = conta.getPedidos();
-			List<ItemPedido> itensPedido = null;
-			for (Pedido pedido : pedidos) {
-				itensPedido = pedido.getItensPedido();
-				for (ItemPedido itemPedido : itensPedido) {
-					sql = "update ItemPedido set quantidade = ?," +
-							"itemCardapioID = ? where itemPedidoID = ?";
-					stmt = conn.prepareStatement(sql);
-					stmt.setInt(1, itemPedido.getQuantidade());
-					stmt.setInt(2, itemPedido.getItemCardapio().getId());
-					stmt.setInt(3, itemPedido.getId());
-					stmt.execute();
-				}
-			}			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+	public void adicionarPedido(Pedido pedido, Conta conta) {
+		RepositorioPedido repositorio = new RepositorioPedidoJDBC();
+		repositorio.salvar(pedido,conta);
 	}
+
+	public void excluirPedido(Pedido pedido) {
+		RepositorioPedido repositorio = new RepositorioPedidoJDBC();
+		repositorio.excluir(pedido);		
+	}	
 }

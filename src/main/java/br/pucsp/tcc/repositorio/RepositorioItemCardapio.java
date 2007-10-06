@@ -31,4 +31,5 @@ public interface RepositorioItemCardapio {
 	 * @return ItemCardapio
 	 */
 	public ItemCardapio buscarPorNome(String nome);
+	public ItemCardapio buscarPorId(int id);
 }

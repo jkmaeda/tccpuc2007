@@ -93,4 +93,24 @@ public class RepositorioItemCardapioJDBC implements RepositorioItemCardapio {
 		}
 		return ret;
 	}
+	
+	public ItemCardapio buscarPorId(int id) {
+		ItemCardapio ret = null;
+		String sql = "select * from itemcardapio where itemCardapioID = ?";		
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				ret = new ItemCardapio();
+				ret.setNome(rs.getString("nome"));
+				ret.setPreco(rs.getDouble("preco"));
+				ret.setDescricao(rs.getString("descricao"));
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
 }

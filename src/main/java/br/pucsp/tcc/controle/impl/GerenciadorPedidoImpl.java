@@ -26,11 +26,11 @@ public class GerenciadorPedidoImpl implements GerenciadorPedido
         conta.getPedidos().add(pedido);
         
         // persistir informações
-        repPedido.salvar(pedido);
+        //repPedido.salvar(pedido);
     }
     
     public void finalizarPedido(Pedido pedido) {
         pedido.finalizar();
-        repPedido.salvar(pedido);
+        //repPedido.salvar(pedido);
     }
 }
