@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 public class Funcionario
 {
     private String nome;
+    private int id;
     
     public Funcionario() {
     }
@@ -15,6 +16,13 @@ public class Funcionario
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     
     // configurar o logger

@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Atendente extends Funcionario
 {
-    public Atendente() {
+	public Atendente() {
     }
     
     // configurar o logger
