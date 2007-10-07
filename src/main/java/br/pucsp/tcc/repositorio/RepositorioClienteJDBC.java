@@ -3,9 +3,14 @@ package br.pucsp.tcc.repositorio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.pucsp.tcc.modelo.Cliente;
+import br.pucsp.tcc.modelo.Conta;
+import br.pucsp.tcc.modelo.ItemCardapio;
+import br.pucsp.tcc.modelo.ItemPedido;
+import br.pucsp.tcc.modelo.Pedido;
 
 public class RepositorioClienteJDBC implements RepositorioCliente 
 {	
@@ -33,8 +38,27 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 	}
 
 	public List<Cliente> obterClientes() {
-		String sql = "select * from Cliente";
-		// implementar
+		
+//		List<Cliente> clientes  
+//		Cliente ret = null;
+//		PreparedStatement stmtIP = null;
+//		ResultSet rsIP = null;
+//		PreparedStatement stmtIC = null;
+//		ResultSet rsIC = null;
+//		RepositorioIdentificacao repIdentificacao = new RepositorioImpressaoDigitalJDBC();
+//		RepositorioConta repConta = new RepositorioContaJDBC();
+//		String sql = "select * from Cliente";
+//		try {
+//			conn = DBConnection.getConnection();
+//			stmt = conn.prepareStatement(sql);
+//			rs = stmt.executeQuery();
+//			if (rs.next()) {
+//				ret = new Cliente();
+//				ret.setCpf(rs.getString("cpf"));
+//				ret.setNome(rs.getString("nome"));
+//				ret.setIdentificacao(repIdentificacao.obterIdentificacao(id);
+//				ret.setConta(repConta.obterConta(id);
+//			}
 		return null;
 	}
 
