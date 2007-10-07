@@ -73,4 +73,10 @@ public class RepositorioNumeroMesaJDBC implements RepositorioIdentificacao {
 			e.printStackTrace();
 		}					
 	}
+
+	@Override
+	public Identificacao obterIdentificacaoPorId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

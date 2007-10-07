@@ -84,4 +84,25 @@ public class RepositorioImpressaoDigitalJDBC
 		}	
 		return identificacaoID;
 	}
+
+	@Override
+	public Identificacao obterIdentificacaoPorId(int id) {
+		int identificacao = id;
+		ImpressaoDigital ret = null;
+		String sql = "select identificacaoID, info " +
+	                 "from Identificacao " +
+	                 "where tipoIdentificacaoID = 2 and info = ?";                     
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			//stmt.setString(1, identificacao);
+			rs = stmt.executeQuery();
+			rs.next();
+			ret = new ImpressaoDigital(rs.getString("info"));
+			ret.setId(rs.getInt("identificacaoID"));
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}				
+		return ret;
+	}
 }

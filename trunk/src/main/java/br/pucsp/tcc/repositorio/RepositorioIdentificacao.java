@@ -28,4 +28,10 @@ public interface RepositorioIdentificacao
      */
     public void excluir(Identificacao id);
     
+    /**
+     * Obtem uma identificação por id
+     * @param id a identificação a ser obtida 
+     * @return Identificacao
+     */
+    public Identificacao obterIdentificacaoPorId(int id);
 }

@@ -30,8 +30,23 @@ public class FabricaRepositorio
         return new RepositorioContaJDBC();
     }
     
-    public RepositorioItemCardapio getRepCardapio()
+    public RepositorioItemCardapio getRepItemCardapio()
     {
         return new RepositorioItemCardapioJDBC();
+    }
+    
+    public RepositorioCardapio getRepCardapio ()
+    {
+    	return new RepositorioCardapioJDBC();
+    }
+    
+    public RepositorioPedido getRepPedido () 
+    {
+    	return new RepositorioPedidoJDBC();
+    }
+
+    public RepositorioFuncionario getRepFuncionario ()
+    {
+    	return new RepositorioFuncionarioJDBC();
     }
 }
