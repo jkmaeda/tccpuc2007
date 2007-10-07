@@ -106,4 +106,16 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 		}
 		return ret;
 	}
+
+	public void excluir(Cliente cliente) {
+		String sql = "delete from cliente where clienteID = ?";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, ((ClienteIndividual)cliente).getId());
+			stmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

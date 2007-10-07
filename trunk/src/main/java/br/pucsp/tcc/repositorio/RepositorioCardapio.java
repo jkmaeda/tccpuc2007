@@ -1,6 +1,10 @@
 package br.pucsp.tcc.repositorio;
 
-public interface RepositorioCardapio {
+import java.util.List;
 
-	//public 
+import br.pucsp.tcc.modelo.Cardapio;
+
+public interface RepositorioCardapio 
+{
+	public List<Cardapio> obterCardapios(); 
 }

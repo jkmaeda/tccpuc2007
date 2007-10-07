@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 public abstract class Cliente
 {	
+	private int id;
     private Conta conta;    
     private Identificacao identificacao;
     
@@ -23,5 +24,12 @@ public abstract class Cliente
     }
     
     // configurar o logger
-    static Log logger = LogFactory.getLog(Cliente.class);	
+    static Log logger = LogFactory.getLog(Cliente.class);
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}	
 }
