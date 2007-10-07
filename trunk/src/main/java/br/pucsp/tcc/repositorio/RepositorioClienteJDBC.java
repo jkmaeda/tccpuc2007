@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.pucsp.tcc.modelo.Cliente;
-import br.pucsp.tcc.modelo.Conta;
-import br.pucsp.tcc.modelo.ItemCardapio;
-import br.pucsp.tcc.modelo.ItemPedido;
-import br.pucsp.tcc.modelo.Pedido;
+import br.pucsp.tcc.modelo.ClienteIndividual;
 
 public class RepositorioClienteJDBC implements RepositorioCliente 
 {	
@@ -29,8 +26,8 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			stmt = conn.prepareStatement(sql);			
 			stmt.setInt(1, contaID);
 			stmt.setInt(2, identificacaoID);
-			stmt.setString(3, cliente.getNome());
-			stmt.setString(3, cliente.getCpf());
+			stmt.setString(3, ((ClienteIndividual) cliente).getNome());
+			stmt.setString(3, ((ClienteIndividual) cliente).getCpf());
 			stmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,36 +36,74 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 
 	public List<Cliente> obterClientes() {
 		
-//		List<Cliente> clientes  
-//		Cliente ret = null;
-//		PreparedStatement stmtIP = null;
-//		ResultSet rsIP = null;
-//		PreparedStatement stmtIC = null;
-//		ResultSet rsIC = null;
-//		RepositorioIdentificacao repIdentificacao = new RepositorioImpressaoDigitalJDBC();
-//		RepositorioConta repConta = new RepositorioContaJDBC();
-//		String sql = "select * from Cliente";
-//		try {
-//			conn = DBConnection.getConnection();
-//			stmt = conn.prepareStatement(sql);
-//			rs = stmt.executeQuery();
-//			if (rs.next()) {
-//				ret = new Cliente();
-//				ret.setCpf(rs.getString("cpf"));
-//				ret.setNome(rs.getString("nome"));
-//				ret.setIdentificacao(repIdentificacao.obterIdentificacao(id);
-//				ret.setConta(repConta.obterConta(id);
-//			}
-		return null;
+		List<Cliente> ret = new ArrayList<Cliente>();  
+		ClienteIndividual cliente = null;		
+		RepositorioIdentificacao repIdentificacao = new RepositorioImpressaoDigitalJDBC();		
+		RepositorioConta repConta = new RepositorioContaJDBC();		
+		String sql = "select * from Cliente";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				cliente = new ClienteIndividual();				
+				cliente.setCpf(rs.getString("cpf"));
+				cliente.setNome(rs.getString("nome"));
+				cliente.setIdentificacao(repIdentificacao.obterIdentificacaoPorId(rs.getInt("identificacaoID")));
+				cliente.setConta(repConta.obterConta(rs.getInt("contaID")));
+				cliente.setMesa(rs.getInt("clienteMesaID"));
+				ret.add(cliente);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
-
+	
 	public Cliente obterPorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from Cliente where clienteID = ? and tipoClienteID = 1";
+		ClienteIndividual ret = new ClienteIndividual();
+		RepositorioIdentificacao repIdentificacao = new RepositorioImpressaoDigitalJDBC();		
+		RepositorioConta repConta = new RepositorioContaJDBC();		
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				ret = new ClienteIndividual();				
+				ret.setCpf(rs.getString("cpf"));
+				ret.setNome(rs.getString("nome"));
+				ret.setIdentificacao(repIdentificacao.obterIdentificacaoPorId(rs.getInt("identificacaoID")));
+				ret.setConta(repConta.obterConta(rs.getInt("contaID")));
+				ret.setMesa(rs.getInt("clienteMesaID"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
-
 	public Cliente obterPorNome(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from Cliente where nome like ?";
+		ClienteIndividual ret = new ClienteIndividual();
+		RepositorioIdentificacao repIdentificacao = new RepositorioImpressaoDigitalJDBC();		
+		RepositorioConta repConta = new RepositorioContaJDBC();		
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				ret = new ClienteIndividual();				
+				ret.setCpf(rs.getString("cpf"));
+				ret.setNome(rs.getString("nome"));
+				ret.setIdentificacao(repIdentificacao.obterIdentificacaoPorId(rs.getInt("identificacaoID")));
+				ret.setConta(repConta.obterConta(rs.getInt("contaID")));
+				ret.setMesa(rs.getInt("clienteMesaID"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 }

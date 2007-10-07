@@ -85,9 +85,8 @@ public class RepositorioImpressaoDigitalJDBC
 		return identificacaoID;
 	}
 
-	@Override
 	public Identificacao obterIdentificacaoPorId(int id) {
-		int identificacao = id;
+		//int identificacao = id;
 		ImpressaoDigital ret = null;
 		String sql = "select identificacaoID, info " +
 	                 "from Identificacao " +
