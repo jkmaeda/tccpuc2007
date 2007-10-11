@@ -1,12 +1,23 @@
 package br.pucsp.tcc.cadastrarCliente;
 
+import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Identificacao;
+import br.pucsp.tcc.modelo.TipoIdentificacao;
+import br.pucsp.tcc.repositorio.FabricaRepositorio;
+import br.pucsp.tcc.repositorio.RepositorioCliente;
+import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
+import br.pucsp.tcc.repositorio.RepositorioImpressaoDigitalJDBC;
 
-class CadastradorClienteIndividualImpl implements CadastradorClienteIndividual {
+public class CadastradorClienteIndividualImpl implements CadastradorClienteIndividual {
 
 	private Identificacao identificacao;
 	private String nome;
+	private ClienteIndividual clienteIndividual;
+	
+	public CadastradorClienteIndividualImpl() {
+		clienteIndividual = new ClienteIndividual();
+	}
 
 	public void solicitarInformacoesUsuario() {
 		FactoryTelaCadastro factoryTelaCadastro = new FactoryTelaCadastro();
@@ -22,11 +33,17 @@ class CadastradorClienteIndividualImpl implements CadastradorClienteIndividual {
 		this.nome = nome;
 	}
 	
+	public void setCliente(Cliente cliente) {
+		this.clienteIndividual = (ClienteIndividual)cliente;
+	}
+	
 	public void salvarCadastro() {
-		ClienteIndividual clienteIndividual = new ClienteIndividual();
 		clienteIndividual.setNome(nome);
 		clienteIndividual.setIdentificacao(identificacao);
 		//TODO realizar persistência do cliente
+		FabricaRepositorio fabricaRepositorio = new FabricaRepositorio();
+		RepositorioCliente repositorio = fabricaRepositorio.getRepCliente();
+		repositorio.salvar(clienteIndividual);
 	}
 
 }

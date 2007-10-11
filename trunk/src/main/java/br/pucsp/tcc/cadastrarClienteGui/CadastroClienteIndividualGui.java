@@ -115,6 +115,11 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 	private JTextField getJTextFieldNome() {
 		if(jTextFieldNome == null) {
 			jTextFieldNome  = new JTextField();
+			jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					confirmarCadastro();
+				}
+			});
 		}
 		return jTextFieldNome;
 	}

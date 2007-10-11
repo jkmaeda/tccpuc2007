@@ -119,10 +119,6 @@ public class RepositorioContaJDBC implements RepositorioConta{
 					rsIP = stmtIP.executeQuery();
 					List<ItemPedido> itensPedido = new ArrayList<ItemPedido>();
 					while (rsIP.next()) {
-						itemPedido = new ItemPedido();
-						itemPedido.setId(rsIP.getInt("itemPedidoID"));
-						itemPedido.setQuantidade(rsIP.getInt("quantidade"));
-						
 						// recupera o item cardápio
 						sql = "select * from ItemCardapio where itemCardapioID = ?";
 						stmtIC = conn.prepareStatement(sql);
@@ -135,7 +131,10 @@ public class RepositorioContaJDBC implements RepositorioConta{
 						itemCardapio.setNome(rsIC.getString("nome"));
 						itemCardapio.setDescricao(rsIC.getString("descricao"));
 						
-						itemPedido.setItemCardapio(itemCardapio);
+						itemPedido = new ItemPedido(itemCardapio);
+						itemPedido.setId(rsIP.getInt("itemPedidoID"));
+						itemPedido.setQuantidade(rsIP.getInt("quantidade"));
+						
 						
 						itensPedido.add(itemPedido);
 					}
