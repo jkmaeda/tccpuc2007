@@ -27,7 +27,7 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			stmt.setInt(1, contaID);
 			stmt.setInt(2, identificacaoID);
 			stmt.setString(3, ((ClienteIndividual) cliente).getNome());
-			stmt.setString(3, ((ClienteIndividual) cliente).getCpf());
+			stmt.setString(4, ((ClienteIndividual) cliente).getCpf());
 			stmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();

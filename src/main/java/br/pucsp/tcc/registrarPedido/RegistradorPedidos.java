@@ -1,6 +1,5 @@
 package br.pucsp.tcc.registrarPedido;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.pucsp.tcc.modelo.Cardapio;
@@ -12,7 +11,7 @@ import br.pucsp.tcc.modelo.Pedido;
 import br.pucsp.tcc.registrarPedidoGui.RegistrarPedidosGui;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCardapio;
-import br.pucsp.tcc.repositorio.RepositorioItemCardapio;
+import br.pucsp.tcc.repositorio.RepositorioConta;
 
 public class RegistradorPedidos 
 	implements RegistrarPedidos {
@@ -42,19 +41,22 @@ public class RegistradorPedidos
 	public void adicionarItem(ItemCardapio itemCardapio) {
 		ItemPedido itemPedido = new ItemPedido(itemCardapio);
 		pedido.adicionarPedido(itemPedido);
+		System.out.println("item adicionado ao cardapio");
 	}
 	
 	public void fecharPedido() {
 		Conta conta = cliente.getConta();
 		conta.adicionarPedido(pedido);
+		RepositorioConta repositorio = new FabricaRepositorio().getRepConta();
+		repositorio.salvar(conta);
 	}
 	
-	///HC
+	///HardCode
 	private Cardapio inventarCardapio() {
 //		new FabricaRepositorio().
 		RepositorioCardapio repositorioCardapio = new FabricaRepositorio().getRepCardapio();
 		
-		List<ItemCardapio> itensCardapio = repositorioCardapio.obterItensCardapio();
+		List<Cardapio> cardapios = repositorioCardapio.obterCardapios();
 //		Cardapio cardapio = new Cardapio();
 //		List<ItemCardapio> itensCardapio = new ArrayList<ItemCardapio>();
 //		//Item 1
@@ -79,9 +81,8 @@ public class RegistradorPedidos
 //		itemCardapio3.setPreco(0.1);
 //		itensCardapio.add(itemCardapio3);
 //		cardapio.setItensCardapio(itensCardapio);
-		Cardapio cardapio = new Cardapio();
-		cardapio.setItensCardapio(itensCardapio);
-		return cardapio;
+//		cardapio.setItensCardapio(itensCardapio);
+		return cardapios.get(0);
 	}
 	
 }

@@ -9,7 +9,8 @@ public class ItemPedido
     private int quantidade;    
     private ItemCardapio itemCardapio;
     
-    public ItemPedido() {
+    public ItemPedido(ItemCardapio itemCardapio) {
+    	this.itemCardapio = itemCardapio;
     }
     
     public int getQuantidade() {

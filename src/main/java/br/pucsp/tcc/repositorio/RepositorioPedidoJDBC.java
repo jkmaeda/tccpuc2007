@@ -87,10 +87,9 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 			stmt.setInt(1, pedido.getId());
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				item = new ItemPedido();
-				item.setId(rs.getInt("itemPedidoID"));
 				ItemCardapio itemCardapio = repositorio.buscarPorId(rs.getInt("itemCardapioID"));
-				item.setItemCardapio(itemCardapio);
+				item = new ItemPedido(itemCardapio);
+				item.setId(rs.getInt("itemPedidoID"));
 				item.setQuantidade(rs.getInt("quantidade"));
 				itens.add(item);
 			}

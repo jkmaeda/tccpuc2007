@@ -23,6 +23,10 @@ public class Pedido
         this.itensPedido = itensPedido;
     }
     
+    public void adicionarPedido(ItemPedido itemPedido) {
+    	itensPedido.add(itemPedido);
+    }
+    
     public void finalizar() {
         logger.debug("Pedido finalizado");
     }
