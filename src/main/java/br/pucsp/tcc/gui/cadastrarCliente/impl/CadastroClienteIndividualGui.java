@@ -4,27 +4,28 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.pucsp.tcc.gui.cadastrarCliente.CadastradorClienteIndividual;
+import br.pucsp.tcc.gui.cadastrarCliente.CadastrarClienteIndividual;
 import br.pucsp.tcc.gui.cadastrarCliente.TelaCadastro;
+import br.pucsp.tcc.mdi.Mdi;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+//import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 
-	private CadastradorClienteIndividual cadastradorClienteIndividual;
+	private CadastrarClienteIndividual cadastradorClienteIndividual;
 	private JPanel jContentPane = null;
-	private JFrame jFrame = null;
+	private Mdi jFrame = null;
 	private JPanel jPanelCENTER = null;
 	private JPanel jPanelNome = null;
 	private JLabel jLabelNome = null;
 	private JTextField jTextFieldNome = null;
 	private JButton jButtonOk = null;
 
-	public CadastroClienteIndividualGui(CadastradorClienteIndividual cadastradorClienteIndividual) {
+	public CadastroClienteIndividualGui(CadastrarClienteIndividual cadastradorClienteIndividual) {
 		super();
 		this.cadastradorClienteIndividual = cadastradorClienteIndividual;
 		initialize();
@@ -49,14 +50,13 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 		fecharTela();
 	}
 	
-	private JFrame getJFrame() {
+	private Mdi getJFrame() {
 		if(jFrame  == null) {
-			jFrame = new JFrame();
-			jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			jFrame.setSize(400, 150);
-			jFrame.setTitle("Cadastrar Cliente");
+			jFrame = new Mdi();
+//			jFrame.setSize(400, 150);
+//			jFrame.setTitle("Cadastrar Cliente");
 			jFrame.setContentPane(getJContentPane());
-			centralizar(jFrame);
+//			centralizar(jFrame);
 		}
 		return jFrame;
 	}

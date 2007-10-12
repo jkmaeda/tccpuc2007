@@ -3,13 +3,10 @@ package br.pucsp.tcc.gui.cadastrarCliente;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Identificacao;
-import br.pucsp.tcc.modelo.TipoIdentificacao;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
-import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
-import br.pucsp.tcc.repositorio.RepositorioImpressaoDigitalJDBC;
 
-public class CadastradorClienteIndividualImpl implements CadastradorClienteIndividual {
+public class CadastradorClienteIndividualImpl implements CadastrarClienteIndividual {
 
 	private Identificacao identificacao;
 	private String nome;
