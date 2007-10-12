@@ -8,7 +8,7 @@ class Main {
 	public static void main(String[] args) {
 		FactoryCadastradorCliente factoryCadastradorCliente = new FactoryCadastradorClienteIndividual();
 		Identificacao identificacao = new ImpressaoDigital("123");
-		CadastrarCliente cadastrarCliente = new CadastrarCliente(factoryCadastradorCliente);
+		CadastradorCliente cadastrarCliente = new CadastradorCliente(factoryCadastradorCliente);
 		cadastrarCliente.cadastrar(identificacao);
 	}
 }

@@ -1,6 +1,6 @@
 package br.pucsp.tcc.gui.cadastrarCliente;
 
-public interface CadastradorClienteIndividual extends CadastradorCliente {
+public interface CadastrarClienteIndividual extends CadastrarCliente {
 
 	public void setNome(String nome);
 	

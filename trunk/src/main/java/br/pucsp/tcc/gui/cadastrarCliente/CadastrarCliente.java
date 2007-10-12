@@ -1,19 +1,13 @@
 package br.pucsp.tcc.gui.cadastrarCliente;
 
+import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.Identificacao;
 
-public class CadastrarCliente {
+public interface CadastrarCliente {
 
-	private FactoryCadastradorCliente factoryCadastradorCliente;
-
-	public CadastrarCliente(FactoryCadastradorCliente factoryCadastradorCliente) {
-		this.factoryCadastradorCliente = factoryCadastradorCliente;
-	}
-	
-	public void cadastrar(Identificacao identificacao) {
-		CadastradorCliente cadastradorCliente = factoryCadastradorCliente.fabricarCadastradorCliente();
-		cadastradorCliente.setIdentificacao(identificacao);
-		cadastradorCliente.solicitarInformacoesUsuario();
-	}
+	public void setIdentificacao(Identificacao identificacao);
+	public void salvarCadastro();
+	public void solicitarInformacoesUsuario();
+	public void setCliente(Cliente cliente);
 	
 }

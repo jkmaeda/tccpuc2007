@@ -2,7 +2,7 @@ package br.pucsp.tcc.gui.gerararIdentificacao;
 
 import java.util.Vector;
 
-import br.pucsp.tcc.gui.cadastrarCliente.CadastradorCliente;
+import br.pucsp.tcc.gui.cadastrarCliente.CadastrarCliente;
 import br.pucsp.tcc.gui.cadastrarCliente.CadastradorClienteIndividualImpl;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
@@ -33,7 +33,7 @@ public class IdentificarClienteExibir implements IdentificadorCliente {
 	public void identificarCliente(String codigoBiometrico) {
 		cliente = repositorioCliente.obterPorId(Integer.parseInt(codigoBiometrico));
 		
-		CadastradorCliente cadastradorCliente = new CadastradorClienteIndividualImpl();
+		CadastrarCliente cadastradorCliente = new CadastradorClienteIndividualImpl();
 		cadastradorCliente.setCliente(cliente);
 		cadastradorCliente.setIdentificacao(new ImpressaoDigital(codigoBiometrico));
 		cadastradorCliente.solicitarInformacoesUsuario();
