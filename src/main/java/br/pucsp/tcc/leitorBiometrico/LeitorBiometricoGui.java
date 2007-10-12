@@ -10,9 +10,9 @@ import java.awt.Toolkit;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import br.pucsp.tcc.gerararIdentificacao.IdentificadorCliente;
-import br.pucsp.tcc.gerararIdentificacao.IdentificarClienteExibir;
-import br.pucsp.tcc.gerararIdentificacao.LeitorBiometrico;
+import br.pucsp.tcc.gui.gerararIdentificacao.IdentificadorCliente;
+import br.pucsp.tcc.gui.gerararIdentificacao.IdentificarClienteExibir;
+import br.pucsp.tcc.gui.gerararIdentificacao.LeitorBiometrico;
 
 public class LeitorBiometricoGui implements LeitorBiometrico {
 
