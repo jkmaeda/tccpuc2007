@@ -1,4 +1,4 @@
-package br.pucsp.tcc.gui.gerararIdentificacao;
+package br.pucsp.tcc.gui.gerarIdentificacao;
 
 public interface IdentificadorCliente {
 
