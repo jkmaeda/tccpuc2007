@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="lib/sqljdbc.jar"/>
+	<classpathentry kind="lib" path="lib/grfingerjava.jar"/>
+	<classpathentry kind="lib" path="lib/grfingerjava-signed.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

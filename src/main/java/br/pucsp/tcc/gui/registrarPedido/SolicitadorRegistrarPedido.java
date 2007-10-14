@@ -1,15 +1,15 @@
 package br.pucsp.tcc.gui.registrarPedido;
 
+import br.pucsp.tcc.mock.biometria.ImpressaoDigitalMock;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.Identificacao;
-import br.pucsp.tcc.modelo.ImpressaoDigital;
 
 public class SolicitadorRegistrarPedido {
 
 	
 	public static void main(String[] args) {
-		Identificacao impressaoDigital = new ImpressaoDigital("12345678910");
+		Identificacao impressaoDigital = ImpressaoDigitalMock.digital9;
 		Conta conta = new Conta();
 		ClienteIndividual clienteIndividual = new ClienteIndividual();
 		clienteIndividual.setIdentificacao(impressaoDigital);

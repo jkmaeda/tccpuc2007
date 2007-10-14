@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import br.pucsp.tcc.gui.cadastrarCliente.CadastrarCliente;
 import br.pucsp.tcc.gui.cadastrarCliente.CadastradorClienteIndividualImpl;
+import br.pucsp.tcc.mock.biometria.ImpressaoDigitalMock;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Identificacao;
@@ -25,12 +26,13 @@ public class IdentificarClienteExibir implements IdentificadorCliente {
 		factoryTelaExibicao = new FactoryTelaExibicaoCliente();
 		telaExibicaoCliente = factoryTelaExibicao.fabricarTelaExibicaoCliente();
 		ClienteIndividual clienteIndividual = new ClienteIndividual();
-		clienteIndividual.setIdentificacao(new ImpressaoDigital("1234"));
+		clienteIndividual.setIdentificacao(ImpressaoDigitalMock.digital1);
 		clienteIndividual.setNome("Mark");
 		bancoDeDados.add(clienteIndividual);
 	}
 	
-	public void identificarCliente(String codigoBiometrico) {
+	public void identificarCliente(String codigoBiometrico)
+	{
 		cliente = repositorioCliente.obterPorId(Integer.parseInt(codigoBiometrico));
 		
 		CadastrarCliente cadastradorCliente = new CadastradorClienteIndividualImpl();
@@ -48,7 +50,7 @@ public class IdentificarClienteExibir implements IdentificadorCliente {
 //			}
 //		}
 //		else {
-//			System.out.println("cliente não encontrado");
+//			System.out.println("cliente nï¿½o encontrado");
 //		}
 	}
 	
