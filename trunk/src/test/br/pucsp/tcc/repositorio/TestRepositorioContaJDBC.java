@@ -27,9 +27,10 @@ public class TestRepositorioContaJDBC extends TestCase {
 		pedidos = new ArrayList<Pedido>();
 		pedido = new Pedido();
 		itensPedido = new ArrayList<ItemPedido>();
-		itemPedido = new ItemPedido();
 		itemCardapio = new ItemCardapio();
 		itemCardapio.setId(4);		
+		
+		itemPedido = new ItemPedido(itemCardapio);
 		
 		itemPedido.setItemCardapio(itemCardapio);
 		itemPedido.setQuantidade(1);
