@@ -21,6 +21,6 @@ public interface GerenciadorIdentificacao
      * @return uma identificação para um cliente
      * @throws OperacaoInvalidaException - caso o tipo da identificação seja desconhecido
      */
-    Identificacao gerarIdentificacao(String info, TipoIdentificacao tipo)
+    Identificacao gerarIdentificacao(Object info, TipoIdentificacao tipo)
         throws OperacaoInvalidaException;
 }
