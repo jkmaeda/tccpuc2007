@@ -20,7 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class LeitorImagem {
-
+	
 	public static byte[] getBytes(Image image) throws IOException
 	{
 		logger.trace("Building image byte array");
@@ -57,6 +57,11 @@ public class LeitorImagem {
 		}
 		return retBytes;
 	}
+	
+	public static Image getImage(byte[] bytes) {
+		ImageIcon icon = new ImageIcon(bytes);
+		return icon.getImage();
+	}
 
 	private static File createTemporaryFile() throws IOException {
 		String tempDir = System.getProperty("java.io.tmpdir");
@@ -78,13 +83,13 @@ public class LeitorImagem {
 		Dimension screenSize = new Dimension(200, 200);
 		Rectangle screenRect = new Rectangle(screenSize);
 		Robot robot = new Robot();
-		BufferedImage image = robot.createScreenCapture(screenRect);
+		BufferedImage ss = robot.createScreenCapture(screenRect);
 
-		byte[] arrByte = getBytes(image);
-		ImageIcon icon = new ImageIcon(arrByte);
+		byte[] arrByte = getBytes(ss);
+		Image image = getImage(arrByte);
 		
 		JFrame frame = new JFrame();
-		frame.setContentPane(new JLabel(icon));
+		frame.setContentPane(new JLabel(new ImageIcon(image)));
 		frame.setSize(400, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Teste");
