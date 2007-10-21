@@ -18,15 +18,16 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 	private PreparedStatement stmt;
 	private ResultSet rs;
 
-	public void salvar(Pedido pedido, Conta conta) {
-		String sql = "";		
+	public int salvar(Pedido pedido, Conta conta) {
+		String sql = "";
+		int pedidoID = -1;
 		try {
 			// cria o pedido
 			sql = "insert into Pedido values (?)";
 			conn = DBConnection.getConnection();
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(sql);			
-			stmt.setInt(1, conta.getId());		
+			stmt.setInt(1, conta.getId());
 			stmt.execute();
 			
 			// recupera o pedido criado					
@@ -34,7 +35,7 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			rs.next();
-			int pedidoID = rs.getInt("PedidoID");
+			pedidoID = rs.getInt("PedidoID");
 			
 			// cria os itens do pedido
 			for (ItemPedido item : pedido.getItensPedido()) {						
@@ -60,9 +61,9 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 				throw new RuntimeException("");
 			}
 		}
+		return pedidoID;
 	}
 	
-
 	public void excluir(Pedido pedido) {
 		String sql = "delete from Pedido where PedidoID = ?";
 		try {
@@ -99,10 +100,10 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 		return itens;
 	}
 
-
 	public void adicionarItem(ItemPedido item, Pedido pedido) {
 		String sql = "insert into ItemPedido values (?,?,?)";
 		try {
+			conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, item.getQuantidade());
 			ItemCardapio itemCardapio = item.getItemCardapio();
@@ -111,10 +112,8 @@ public class RepositorioPedidoJDBC implements RepositorioPedido
 			stmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
-
 
 	public void excluirItem(ItemPedido item) {
 		String sql = "delete from ItemPedido where itemPedidoID = ?";

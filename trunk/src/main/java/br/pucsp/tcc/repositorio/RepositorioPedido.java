@@ -8,7 +8,7 @@ import br.pucsp.tcc.modelo.Pedido;
 
 public interface RepositorioPedido
 {
-    public void salvar(Pedido pedido, Conta conta);
+    public int salvar(Pedido pedido, Conta conta);
     public void excluir(Pedido pedido);       
     public List<ItemPedido> obterItens(Pedido pedido);
     public void adicionarItem(ItemPedido item, Pedido pedido);

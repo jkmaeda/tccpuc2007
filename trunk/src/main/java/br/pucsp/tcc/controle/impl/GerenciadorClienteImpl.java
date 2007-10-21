@@ -7,12 +7,10 @@ import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.modelo.TipoIdentificacao;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
-import br.pucsp.tcc.repositorio.RepositorioIdentificacao;
 
 public class GerenciadorClienteImpl implements GerenciadorCliente
 {
-    FabricaRepositorio fabRepositorios;
-    RepositorioIdentificacao repIdentificacao;
+    FabricaRepositorio fabRepositorios;    
     RepositorioCliente repCliente;
     
     public GerenciadorClienteImpl() {
