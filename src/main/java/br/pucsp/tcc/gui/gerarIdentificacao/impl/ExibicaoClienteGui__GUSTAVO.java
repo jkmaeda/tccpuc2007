@@ -16,6 +16,7 @@ import br.pucsp.tcc.infra.leitorbiometrico.impl.LeitorMicrosoft;
 import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
 
+@SuppressWarnings("serial")
 public class ExibicaoClienteGui__GUSTAVO extends JFrame implements LeitorBiometricoListener
 {
 	public static void main(String[] args) {
@@ -72,7 +73,6 @@ public class ExibicaoClienteGui__GUSTAVO extends JFrame implements LeitorBiometr
 		}
 	}
 
-	@Override
 	public void leituraIdentificacaoFinalizada(Identificacao identificacao)
 	{
 		this.identificacao = identificacao;
@@ -80,7 +80,6 @@ public class ExibicaoClienteGui__GUSTAVO extends JFrame implements LeitorBiometr
 		painelIdentificacao.repaint();
 	}
 
-	@Override
 	public void leituraIdentificacaoIniciada() {
 		painelIdentificacao.setBackground(Color.LIGHT_GRAY);
 	}

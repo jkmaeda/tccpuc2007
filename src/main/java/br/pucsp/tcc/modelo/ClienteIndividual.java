@@ -1,5 +1,7 @@
 package br.pucsp.tcc.modelo;
 
+import java.awt.Image;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -7,18 +9,10 @@ public class ClienteIndividual extends Cliente
 {    
 	private String nome;
 	private String cpf;
-    private int mesa;
+	private Image foto;
     
     public ClienteIndividual() {
-    }       
-    
-    public int getMesa() {
-        return mesa;
-    }
-    
-    public void setMesa(int mesa) {
-        this.mesa = mesa;
-    }
+    }             
     
     public String getNome() {
 		return nome;
@@ -31,6 +25,12 @@ public class ClienteIndividual extends Cliente
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	public Image getFoto() {
+		return foto;
+	}
+	public void setFoto(Image foto) {
+		this.foto = foto;
 	}
 	
     // configurar o logger
