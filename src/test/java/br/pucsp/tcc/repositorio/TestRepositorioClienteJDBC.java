@@ -13,7 +13,7 @@ public class TestRepositorioClienteJDBC extends TestCase
 {
 	public void testSavarCliente() throws Exception
 	{		
-		Image info = ImpressaoDigitalMock.digital1.getInfo();
+		Image info = ImpressaoDigitalMock.digital1.getInfo();		
 		ImpressaoDigital identificacao = new ImpressaoDigital(info);
 		
 		ClienteIndividual clienteEsperado = new ClienteIndividual();

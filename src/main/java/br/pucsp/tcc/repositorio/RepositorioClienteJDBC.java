@@ -50,7 +50,7 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			stmt.setString(5, cliente.getCpf());
 			stmt.execute();
 			
-			// recupera a conta criada
+			// recupera o cliente criado
 			sql = "select max(clienteID) as clienteID from Cliente";
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
