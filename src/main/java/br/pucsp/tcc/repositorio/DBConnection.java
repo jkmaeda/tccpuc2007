@@ -29,10 +29,13 @@ public class DBConnection {
 			Class.forName(driver);  
 			instance = DriverManager.getConnection(url,login,password);  	           
 		}catch(ClassNotFoundException e){  
+		    e.printStackTrace();
 			throw new Exception("Error : Driver não encontrado.");  	                         
 		}catch(SQLException e){  
-			throw new Exception("Error : Não foi possível conectar ao banco de dados.");  		
+		    e.printStackTrace();
+			throw new Exception("Error : Não foi possível conectar ao banco de dados.");		
 		}catch(Exception e){  
+		    e.printStackTrace();
 			throw new Exception(e.getMessage());  
 		}  
 	               
