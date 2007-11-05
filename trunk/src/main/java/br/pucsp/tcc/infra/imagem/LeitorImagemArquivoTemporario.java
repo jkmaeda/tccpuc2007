@@ -7,6 +7,7 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,30 +20,44 @@ import javax.swing.JLabel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class LeitorImagem {
+public class LeitorImagemArquivoTemporario implements ILeitorImagem {
 	
-	public static byte[] getBytes(Image image) throws IOException
+	public byte[] converter(Image image)
 	{
 		logger.trace("Building image byte array");
 		
-		// save the image to a temp file
-		File outputFile = LeitorImagem.createTemporaryFile();
-		logger.trace("Temporary file created");
-		
-		BufferedImage buff = BufferedImageBuilder.toBufferedImage(image);
-		logger.trace("BufferedImage created");
-		
-		ImageIO.write(buff, "PNG", outputFile);
-		logger.trace("Image successfully written to the hard-disk");
-		
 		// read from the temp file
-		List<Byte> bytes = new LinkedList<Byte>();
-		FileInputStream fis = new FileInputStream(outputFile);
-		byte[] imgBuff = new byte[1];
-		while(fis.read(imgBuff) != -1) {
-			bytes.add(imgBuff[0]);
-		}
-		fis.close();
+        List<Byte> bytes = null;
+        try
+        {
+            // save the image to a temp file
+            File outputFile = LeitorImagemArquivoTemporario.createTemporaryFile();
+            logger.trace("Temporary file created");
+            
+            BufferedImage buff = BufferedImageBuilder.toBufferedImage(image);
+            logger.trace("BufferedImage created");
+            
+            ImageIO.write(buff, "PNG", outputFile);
+            logger.trace("Image successfully written to the hard-disk");
+            
+            bytes = new LinkedList<Byte>();
+            FileInputStream fis = new FileInputStream(outputFile);
+            byte[] imgBuff = new byte[1];
+            while(fis.read(imgBuff) != -1) {
+            	bytes.add(imgBuff[0]);
+            }
+            fis.close();
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 		
 		logger.trace("Image successfully read from the hard-disk");
 		logger.trace("Total bytes: " + bytes.size());
@@ -58,7 +73,7 @@ public class LeitorImagem {
 		return retBytes;
 	}
 	
-	public static Image getImage(byte[] bytes) {
+	public Image converter(byte[] bytes) {
 		ImageIcon icon = new ImageIcon(bytes);
 		return icon.getImage();
 	}
@@ -84,9 +99,10 @@ public class LeitorImagem {
 		Rectangle screenRect = new Rectangle(screenSize);
 		Robot robot = new Robot();
 		BufferedImage ss = robot.createScreenCapture(screenRect);
-
-		byte[] arrByte = getBytes(ss);
-		Image image = getImage(arrByte);
+		
+		ILeitorImagem leitor = new LeitorImagemArquivoTemporario();
+		byte[] arrByte = leitor.converter(ss);
+		Image image = leitor.converter(arrByte);
 		
 		JFrame frame = new JFrame();
 		frame.setContentPane(new JLabel(new ImageIcon(image)));
@@ -97,5 +113,5 @@ public class LeitorImagem {
 		frame.setVisible(true);
 	}
 	
-	static Log logger = LogFactory.getLog(LeitorImagem.class);
+	static Log logger = LogFactory.getLog(LeitorImagemArquivoTemporario.class);
 }
