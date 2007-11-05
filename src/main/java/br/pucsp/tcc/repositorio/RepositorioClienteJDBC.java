@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.pucsp.tcc.infra.imagem.LeitorImagem;
+import br.pucsp.tcc.infra.imagem.LeitorImagemFactory;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
@@ -16,6 +17,8 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 	private Connection conn;
 	private PreparedStatement stmt;
 	private ResultSet rs;
+	
+	private LeitorImagem leitorImagem = LeitorImagemFactory.get();
 	
 	public int salvar(Cliente c) {
 		String sql = "insert into cliente values (?,?,?,?,?,1)";
@@ -36,12 +39,12 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			
 			// salva a identificação do cliente
 			ImpressaoDigital identificacao = (ImpressaoDigital)cliente.getIdentificacao();
-			byte [] imageBytes = LeitorImagem.getBytes(identificacao.getInfo()); 
+			byte [] imageBytes = leitorImagem.converter(identificacao.getInfo()); 
 			stmt.setBytes(2, imageBytes);
 			
 			// salva a foto do cliente
 			if (cliente.getFoto() != null) {
-				stmt.setBytes(3, LeitorImagem.getBytes(cliente.getFoto()));
+				stmt.setBytes(3, leitorImagem.converter(cliente.getFoto()));
 			} else {
 				stmt.setString(3, null);
 			}
@@ -78,9 +81,9 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 				cliente.setId(rs.getInt("clienteID"));
 				cliente.setConta(repConta.obterConta(rs.getInt("contaID")));
 				// recupera a identificação						
-				cliente.setIdentificacao(new ImpressaoDigital(LeitorImagem.getImage(rs.getBytes("identificacao"))));
+				cliente.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				cliente.setFoto(LeitorImagem.getImage(rs.getBytes("foto")));
+				cliente.setFoto(leitorImagem.converter(rs.getBytes("foto")));
 				cliente.setCpf(rs.getString("cpf"));
 				cliente.setNome(rs.getString("nome"));				
 				ret.add(cliente);
@@ -105,9 +108,9 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 				ret.setId(rs.getInt("clienteID"));
 				ret.setConta(repConta.obterConta(rs.getInt("contaID")));
 				// recupera a identificação						
-				ret.setIdentificacao(new ImpressaoDigital(LeitorImagem.getImage(rs.getBytes("identificacao"))));
+				ret.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				ret.setFoto(LeitorImagem.getImage(rs.getBytes("foto")));
+				ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
 				ret.setCpf(rs.getString("cpf"));
 				ret.setNome(rs.getString("nome"));																	
 			}
@@ -130,9 +133,9 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 				ret.setId(rs.getInt("clienteID"));
 				ret.setConta(repConta.obterConta(rs.getInt("contaID")));
 				// recupera a identificação						
-				ret.setIdentificacao(new ImpressaoDigital(LeitorImagem.getImage(rs.getBytes("identificacao"))));
+				ret.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				ret.setFoto(LeitorImagem.getImage(rs.getBytes("foto")));
+				ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
 				ret.setCpf(rs.getString("cpf"));
 				ret.setNome(rs.getString("nome"));				
 			}
