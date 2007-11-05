@@ -20,13 +20,13 @@ import javax.swing.JLabel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class LeitorImagemArquivoTemporario implements ILeitorImagem {
-	
-	public byte[] converter(Image image)
-	{
-		logger.trace("Building image byte array");
-		
-		// read from the temp file
+public class LeitorImagemArquivoTemporario implements LeitorImagem
+{
+    public byte[] converter(Image image)
+    {
+        logger.trace("Building image byte array");
+        
+        // read from the temp file
         List<Byte> bytes = null;
         try
         {
@@ -43,8 +43,9 @@ public class LeitorImagemArquivoTemporario implements ILeitorImagem {
             bytes = new LinkedList<Byte>();
             FileInputStream fis = new FileInputStream(outputFile);
             byte[] imgBuff = new byte[1];
-            while(fis.read(imgBuff) != -1) {
-            	bytes.add(imgBuff[0]);
+            while(fis.read(imgBuff) != -1)
+            {
+                bytes.add(imgBuff[0]);
             }
             fis.close();
         }
@@ -58,60 +59,64 @@ public class LeitorImagemArquivoTemporario implements ILeitorImagem {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-		
-		logger.trace("Image successfully read from the hard-disk");
-		logger.trace("Total bytes: " + bytes.size());
-		
-		// remove the temp file
-		//outputFile.delete();
-		
-		// convert to byte array
-		byte[] retBytes = new byte[bytes.size()];
-		for(int i = 0; i < bytes.size(); i++) {
-			retBytes[i] = bytes.get(i);
-		}
-		return retBytes;
-	}
-	
-	public Image converter(byte[] bytes) {
-		ImageIcon icon = new ImageIcon(bytes);
-		return icon.getImage();
-	}
-
-	private static File createTemporaryFile() throws IOException {
-		String tempDir = System.getProperty("java.io.tmpdir");
-		tempDir = "C:\\";
-		logger.trace("System temp-dir is: " + tempDir);
-		File file = null;
-		do {
-			int random = (int) (Math.random() * 100000);
-			String tempFileName = tempDir + "tmp" + random + ".png";
-			logger.trace("Trying to create the temp-file: " + tempFileName);
-			file = new File(tempFileName);
-		} while(file.exists());
-		file.createNewFile();
-		return file;
-	}
-	
-	public static void main(String[] args) throws Exception
-	{
-		Dimension screenSize = new Dimension(200, 200);
-		Rectangle screenRect = new Rectangle(screenSize);
-		Robot robot = new Robot();
-		BufferedImage ss = robot.createScreenCapture(screenRect);
-		
-		ILeitorImagem leitor = new LeitorImagemArquivoTemporario();
-		byte[] arrByte = leitor.converter(ss);
-		Image image = leitor.converter(arrByte);
-		
-		JFrame frame = new JFrame();
-		frame.setContentPane(new JLabel(new ImageIcon(image)));
-		frame.setSize(400, 400);
-		frame.setLocationRelativeTo(null);
-		frame.setTitle("Teste");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-	
-	static Log logger = LogFactory.getLog(LeitorImagemArquivoTemporario.class);
+        
+        logger.trace("Image successfully read from the hard-disk");
+        logger.trace("Total bytes: " + bytes.size());
+        
+        // remove the temp file
+        // outputFile.delete();
+        
+        // convert to byte array
+        byte[] retBytes = new byte[bytes.size()];
+        for(int i = 0; i < bytes.size(); i++)
+        {
+            retBytes[i] = bytes.get(i);
+        }
+        return retBytes;
+    }
+    
+    public Image converter(byte[] bytes)
+    {
+        ImageIcon icon = new ImageIcon(bytes);
+        return icon.getImage();
+    }
+    
+    private static File createTemporaryFile() throws IOException
+    {
+        String tempDir = System.getProperty("java.io.tmpdir");
+        tempDir = "C:\\";
+        logger.trace("System temp-dir is: " + tempDir);
+        File file = null;
+        do
+        {
+            int random = (int) (Math.random() * 100000);
+            String tempFileName = tempDir + "tmp" + random + ".png";
+            logger.trace("Trying to create the temp-file: " + tempFileName);
+            file = new File(tempFileName);
+        } while(file.exists());
+        file.createNewFile();
+        return file;
+    }
+    
+    public static void main(String[] args) throws Exception
+    {
+        Dimension screenSize = new Dimension(200, 200);
+        Rectangle screenRect = new Rectangle(screenSize);
+        Robot robot = new Robot();
+        BufferedImage ss = robot.createScreenCapture(screenRect);
+        
+        LeitorImagem leitor = new LeitorImagemArquivoTemporario();
+        byte[] arrByte = leitor.converter(ss);
+        Image image = leitor.converter(arrByte);
+        
+        JFrame frame = new JFrame();
+        frame.setContentPane(new JLabel(new ImageIcon(image)));
+        frame.setSize(400, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("Teste");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+    
+    static Log logger = LogFactory.getLog(LeitorImagemArquivoTemporario.class);
 }

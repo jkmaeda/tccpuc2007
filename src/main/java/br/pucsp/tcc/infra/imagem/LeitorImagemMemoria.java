@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class LeitorImagemMemoria implements ILeitorImagem
+public class LeitorImagemMemoria implements LeitorImagem
 {
     public Image converter(byte[] imgBytes)
     {
@@ -59,7 +59,7 @@ public class LeitorImagemMemoria implements ILeitorImagem
         Robot robot = new Robot();
         BufferedImage ss = robot.createScreenCapture(screenRect);
         
-        ILeitorImagem leitor = new LeitorImagemMemoria();
+        LeitorImagem leitor = new LeitorImagemMemoria();
         byte[] arrByte = leitor.converter(ss);
         Image image = leitor.converter(arrByte);
         
