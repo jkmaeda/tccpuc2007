@@ -16,7 +16,7 @@ public class ImpressaoDigitalMock extends ImpressaoDigital
 	private static Image getImage(int numero)
 	{
 		ClassLoader cl = ImpressaoDigitalMock.class.getClassLoader();
-		URL res = cl.getResource(String.format("ProcessedSample%d.bmp", numero));
+		URL res = cl.getResource(String.format("ProcessedSample%d.png", numero));
 		
 		ImageIcon icon = new ImageIcon(res);		
 		return icon.getImage();

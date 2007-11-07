@@ -10,6 +10,7 @@ import br.pucsp.tcc.infra.imagem.LeitorImagem;
 import br.pucsp.tcc.infra.imagem.LeitorImagemFactory;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
+import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
 
 public class RepositorioClienteJDBC implements RepositorioCliente 
@@ -46,7 +47,7 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			if (cliente.getFoto() != null) {
 				stmt.setBytes(3, leitorImagem.converter(cliente.getFoto()));
 			} else {
-				stmt.setString(3, null);
+				stmt.setBytes(3, null);
 			}
 						
 			stmt.setString(4, cliente.getNome());
@@ -83,7 +84,9 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 				// recupera a identificação						
 				cliente.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				cliente.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				if (rs.getBytes("foto") != null) {
+					cliente.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				}				
 				cliente.setCpf(rs.getString("cpf"));
 				cliente.setNome(rs.getString("nome"));				
 				ret.add(cliente);
@@ -105,12 +108,14 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 			rs = stmt.executeQuery();
 			if (rs.next()) {
 				ret = new ClienteIndividual();
-				ret.setId(rs.getInt("clienteID"));
-				ret.setConta(repConta.obterConta(rs.getInt("contaID")));
-				// recupera a identificação						
+				ret.setId(rs.getInt("clienteID"));				
+				ret.setConta(repConta.obterConta(rs.getInt("contaID")));							
+				// recupera a identificação
 				ret.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				if (rs.getBytes("foto") != null) {
+					ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				} 
 				ret.setCpf(rs.getString("cpf"));
 				ret.setNome(rs.getString("nome"));																	
 			}
@@ -135,7 +140,9 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 				// recupera a identificação						
 				ret.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
 				// recupera a foto
-				ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				if (rs.getBytes("foto") != null) {
+					ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				}
 				ret.setCpf(rs.getString("cpf"));
 				ret.setNome(rs.getString("nome"));				
 			}
@@ -155,5 +162,22 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean existeCliente(Identificacao identificacao) {
+		boolean ret = false;
+		String sql = "select top 1 * from cliente where cast(identificacao as varbinary(max)) = cast(? as varbinary(max))";
+		ImpressaoDigital digital = (ImpressaoDigital)identificacao;
+		byte [] imageBytes = leitorImagem.converter(digital.getInfo()); 
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setBytes(1, imageBytes);
+			rs = stmt.executeQuery();
+			ret = rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return ret;
 	}
 }

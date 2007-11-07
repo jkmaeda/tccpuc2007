@@ -15,25 +15,18 @@ extends TestCase
 	{
 		// cria a conta para relacionar o pedido
 		Conta conta = new Conta();
-		conta.setId(25);
+		conta.setId(1);
 		
 		// cria o pedido
 		Pedido pedido = new Pedido();
 		ItemCardapio ic = null;
 		ic = new ItemCardapio();
-		ic.setId(9); // refrigerante
+		ic.setId(1); // coca-cola
 		ItemPedido item = null;
 		item = new ItemPedido(ic);
 		
 		// adicionou o refrigerante
-		pedido.adicionarPedido(item);
-		
-		ic = new ItemCardapio();
-		ic.setId(10); // bauru
-		item = new ItemPedido(ic);
-		
-		// adicinou o bauru
-		pedido.adicionarPedido(item);
+		pedido.adicionarPedido(item);			
 		
 		RepositorioPedido rep = new RepositorioPedidoJDBC();
 		rep.salvar(pedido, conta);			
@@ -41,9 +34,13 @@ extends TestCase
 	
 	public void testExcluirPedido() throws Exception
 	{
-		Pedido pedido = new Pedido();
-		pedido.setId(34);
-		RepositorioPedido rep = new RepositorioPedidoJDBC();
+		RepositorioPedido rep = new RepositorioPedidoJDBC();							
+		RepositorioConta repConta = new RepositorioContaJDBC();
+		Conta conta = repConta.obterConta(1);
+		List<Pedido> pedidos = conta.getPedidos();
+		int tamanho = pedidos.size();
+		
+		Pedido pedido = pedidos.get(tamanho-1);		
 		rep.excluir(pedido);
 	}
 	
@@ -51,7 +48,7 @@ extends TestCase
 	{
 		// pedido para recuperar os itens
 		Pedido pedido = new Pedido();
-		pedido.setId(33);
+		pedido.setId(1);
 		
 		RepositorioPedido rep = new RepositorioPedidoJDBC();
 		List<ItemPedido> itens = rep.obterItens(pedido);
@@ -62,29 +59,26 @@ extends TestCase
 	{
 		// pedido para recuperar os itens
 		Pedido pedido = new Pedido();
-		pedido.setId(33);
+		pedido.setId(1);
 		
 		RepositorioPedido rep = new RepositorioPedidoJDBC();
 		
-		// cria itens para adicionar ao pedido
-		
+		// cria itens para adicionar ao pedido		
 		ItemCardapio item1 = new ItemCardapio();
-		item1.setId(9);
-		ItemCardapio item2 = new ItemCardapio();
-		item2.setId(10);
+		item1.setId(1);	
 		
 		ItemPedido ip1 = new ItemPedido(item1);
-		ItemPedido ip2 = new ItemPedido(item2);
-				
-		rep.adicionarItem(ip1, pedido);
-		rep.adicionarItem(ip2, pedido);				
+		rep.adicionarItem(ip1, pedido);					
 	}
 	
 	public void testExcluirItem()
 	{
-		RepositorioPedido rep = new RepositorioPedidoJDBC();
-		ItemPedido item = new ItemPedido(null);
-		item.setId(60);
+		RepositorioPedido rep = new RepositorioPedidoJDBC();						
+		Pedido p = new Pedido();
+		p.setId(1);
+		List<ItemPedido> itens = rep.obterItens(p);
+		int tamanho = itens.size(); 
+		ItemPedido item = itens.get(tamanho-1);
 		rep.excluirItem(item);
 	}
 }

@@ -7,7 +7,6 @@ import br.pucsp.tcc.gui.cadastrarCliente.CadastradorClienteIndividualImpl;
 import br.pucsp.tcc.mock.biometria.ImpressaoDigitalMock;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
-import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
@@ -36,22 +35,9 @@ public class IdentificarClienteExibir implements IdentificadorCliente {
 		cliente = repositorioCliente.obterPorId(Integer.parseInt(codigoBiometrico));
 		
 		CadastrarCliente cadastradorCliente = new CadastradorClienteIndividualImpl();
-		cadastradorCliente.setCliente(cliente);
-		cadastradorCliente.setIdentificacao(new ImpressaoDigital(codigoBiometrico));
-		cadastradorCliente.solicitarInformacoesUsuario();
-		
-//		MyCliente clienteFalso = new MyCliente(codigoBiometrico);
-//		if(bancoDeDados.contains(clienteFalso)) {
-//			for(ClienteIndividual cli: bancoDeDados) {
-//				if(clienteFalso.equals(cli)) {
-//					cliente = cli;
-//					exibirCliente();
-//				}
-//			}
-//		}
-//		else {
-//			System.out.println("cliente n�o encontrado");
-//		}
+		cadastradorCliente.setCliente(cliente);		
+		cadastradorCliente.setIdentificacao(ImpressaoDigitalMock.digital1);
+		cadastradorCliente.solicitarInformacoesUsuario();		
 	}
 	
 	public void exibirCliente() {

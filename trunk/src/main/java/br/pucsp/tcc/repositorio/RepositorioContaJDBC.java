@@ -169,5 +169,18 @@ public class RepositorioContaJDBC implements RepositorioConta{
 	public void excluirPedido(Pedido pedido) {
 		RepositorioPedido repositorio = new RepositorioPedidoJDBC();
 		repositorio.excluir(pedido);		
+	}
+
+	public void atualizar(Conta conta) {
+		String sql = "update Conta set observacao = ? where contaID = ?";
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, conta.getObservacao());
+			stmt.setInt(2, conta.getId());
+			stmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}	
 }

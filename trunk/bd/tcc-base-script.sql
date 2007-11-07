@@ -10,7 +10,7 @@ CREATE TABLE Cardapio (
 	cardapioID int IDENTITY(1,1) NOT NULL,
 	estabelecimentoID int NOT NULL,
 	PRIMARY KEY (cardapioID),
-	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID)	
+	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID) ON DELETE CASCADE	
 ) 
 
 CREATE TABLE ItemCardapio (
@@ -20,7 +20,7 @@ CREATE TABLE ItemCardapio (
 	descricao text NULL,
 	cardapioID int NOT NULL,
 	PRIMARY KEY (itemCardapioID),
-	FOREIGN KEY (cardapioID) REFERENCES Cardapio(cardapioID)
+	FOREIGN KEY (cardapioID) REFERENCES Cardapio(cardapioID) ON DELETE CASCADE
 )
 
 CREATE TABLE TipoFuncionario (
@@ -35,8 +35,8 @@ CREATE TABLE Funcionario (
 	tipoFuncionarioID int NOT NULL,
 	estabelecimentoID int NOT NULL,
 	PRIMARY KEY (funcionarioID),
-	FOREIGN KEY (tipoFuncionarioID) REFERENCES TipoFuncionario(tipoFuncionarioID),
-	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID)
+	FOREIGN KEY (tipoFuncionarioID) REFERENCES TipoFuncionario(tipoFuncionarioID) ON DELETE CASCADE,
+	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID) ON DELETE CASCADE
 )
 
 CREATE TABLE Conta (
@@ -49,7 +49,7 @@ CREATE TABLE  Pedido (
 	pedidoID int IDENTITY(1,1) NOT NULL,
 	contaID int NOT NULL,
 	PRIMARY KEY (pedidoID),
-	FOREIGN KEY (contaID) REFERENCES Conta(contaID)
+	FOREIGN KEY (contaID) REFERENCES Conta(contaID) ON DELETE CASCADE
 )
 
 CREATE TABLE ItemPedido (
@@ -58,8 +58,8 @@ CREATE TABLE ItemPedido (
 	itemCardapioID int NOT NULL,
 	pedidoID int NOT NULL,
 	PRIMARY KEY (itemPedidoID),
-	FOREIGN KEY (itemCardapioID) REFERENCES ItemCardapio(itemCardapioID),
-	FOREIGN KEY (pedidoID) REFERENCES Pedido(pedidoID)
+	FOREIGN KEY (itemCardapioID) REFERENCES ItemCardapio(itemCardapioID) ON DELETE CASCADE,
+	FOREIGN KEY (pedidoID) REFERENCES Pedido(pedidoID) ON DELETE CASCADE
 )
 
 CREATE TABLE Cliente (
@@ -71,6 +71,6 @@ CREATE TABLE Cliente (
 	cpf varchar(11) NULL,
 	estabelecimentoID int NULL,
 	PRIMARY KEY (clienteID),
-	FOREIGN KEY (contaID) REFERENCES Conta(contaID),
-	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID)
+	FOREIGN KEY (contaID) REFERENCES Conta(contaID) ON DELETE CASCADE,
+	FOREIGN KEY (estabelecimentoID) REFERENCES Estabelecimento(estabelecimentoID) ON DELETE CASCADE
 )
