@@ -15,9 +15,9 @@ public class TestRepositorioItemCardapioJDBC extends TestCase {
 	public void testBuscarItemCardapioPorNome() {
 		RepositorioItemCardapio repositorio = new RepositorioItemCardapioJDBC();
 		ItemCardapio itemEsperado = new ItemCardapio();
-		itemEsperado.setNome("Refrigerante");
+		itemEsperado.setNome("coca-cola");
 		itemEsperado.setPreco(4.50);		
-		ItemCardapio itemObtido = repositorio.buscarPorNome("Refrigerante");
+		ItemCardapio itemObtido = repositorio.buscarPorNome("coca-cola");
 		assertEquals(itemEsperado.getNome(), itemObtido.getNome());
 		assertEquals(itemEsperado.getPreco(), itemObtido.getPreco());
 	}
@@ -48,10 +48,10 @@ public class TestRepositorioItemCardapioJDBC extends TestCase {
 	public void testAtualizarItemCardapio() {
 		RepositorioItemCardapio repositorio = new RepositorioItemCardapioJDBC();
 		ItemCardapio itemEsperado = new ItemCardapio();
-		itemEsperado.setNome("Refrigerante");
+		itemEsperado.setNome("coca-cola");
 		itemEsperado.setPreco(4.50);		
 		repositorio.atualizar(itemEsperado);		
-		ItemCardapio itemObtido = repositorio.buscarPorNome("Refrigerante");		
+		ItemCardapio itemObtido = repositorio.buscarPorNome("coca-cola");		
 		assertEquals(itemEsperado.getPreco(), itemObtido.getPreco());
 	}
 }

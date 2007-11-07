@@ -24,19 +24,18 @@ public class TestRepositorioClienteJDBC extends TestCase
 				
 		RepositorioCliente repositorio = new RepositorioClienteJDBC();
 		
-		int idObtido = repositorio.salvar(clienteEsperado);		
-		ClienteIndividual clienteObtido = (ClienteIndividual) repositorio.obterPorId(idObtido);
+		int idEsperado = repositorio.salvar(clienteEsperado);		
+		ClienteIndividual clienteObtido = (ClienteIndividual) repositorio.obterPorId(idEsperado);
 		
-		assertEquals(clienteEsperado.getId(), clienteObtido.getId());
-		assertEquals(clienteEsperado.getCpf(), clienteObtido.getCpf());
-		
+		assertEquals(idEsperado, clienteObtido.getId());
+		assertEquals(clienteEsperado.getCpf(), clienteObtido.getCpf());		
 	}
 	
 	public void testObterClientePorId()
 	{
 		RepositorioCliente repositorio = new RepositorioClienteJDBC();
-		ClienteIndividual clienteObtido = (ClienteIndividual) repositorio.obterPorId(4);
-		assertEquals(4, clienteObtido.getId());
+		ClienteIndividual clienteObtido = (ClienteIndividual) repositorio.obterPorId(1);
+		assertEquals(1, clienteObtido.getId());
 	}
 	
 	public void testObterClientePorNome()
@@ -50,7 +49,7 @@ public class TestRepositorioClienteJDBC extends TestCase
 	{
 		RepositorioCliente repositorio = new RepositorioClienteJDBC();
 		List<Cliente> clientesObtidos = repositorio.obterClientes();
-		assertTrue(clientesObtidos.size() > 2);
+		assertTrue(clientesObtidos.size() > 0);
 	}
 	
 	public void testExcluirCliente()
@@ -73,5 +72,14 @@ public class TestRepositorioClienteJDBC extends TestCase
 		
 		ClienteIndividual cli = (ClienteIndividual) repositorio.obterPorId(idObtido);
 		assertNull(cli);
+	}
+	
+	public void testExisteCliente()
+	{
+		Image info = ImpressaoDigitalMock.digital1.getInfo();
+		ImpressaoDigital identificacao = new ImpressaoDigital(info);
+		RepositorioCliente repositorio = new RepositorioClienteJDBC();
+		boolean valorObtido = repositorio.existeCliente(identificacao);
+		assertTrue(valorObtido);
 	}
 }
