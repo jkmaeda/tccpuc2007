@@ -3,7 +3,6 @@ package br.pucsp.tcc.gui.mdi;
 import java.util.Properties;
 
 import br.pucsp.tcc.aplicacao.ArquivoDeConfiguracao;
-import br.pucsp.tcc.gui.mdiSwing.MdiSwing;
 
 public class FactorySingletonMdi {
 
@@ -17,7 +16,6 @@ public class FactorySingletonMdi {
 	}
 	
 	private static Mdi fabricarMdi() {
-		System.out.println(MdiSwing.class);
 		Properties properties = ArquivoDeConfiguracao.getPeoperties();
 		String fullyQualifiedName = properties.getProperty("mdi");
 		mdi = null;
