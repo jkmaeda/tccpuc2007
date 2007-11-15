@@ -1,0 +1,34 @@
+package br.pucsp.tcc.gui.componentesPersonalizados;
+
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+
+import javax.swing.JTextField;
+
+public class MyJTextField extends JTextField {
+
+	public MyJTextField() {
+		super();
+		this.addFocusListener(new MyFocusEvent(this));
+	}
+	
+	public class MyFocusEvent extends FocusAdapter {
+		
+		private MyJTextField myJTextField;
+		
+		public MyFocusEvent(MyJTextField myJTextField) {
+			this.myJTextField = myJTextField;
+		}
+		
+		public void focusLost(java.awt.event.FocusEvent e) {
+			myJTextField.setBackground(Color.WHITE);
+		}
+		public void focusGained(java.awt.event.FocusEvent e) {
+			myJTextField.setSelectionStart(0);
+			myJTextField.setSelectionEnd(myJTextField.getText().length());
+			myJTextField.setBackground(new Color(227, 255, 223));
+		}
+		
+	}
+	
+}

@@ -43,4 +43,8 @@ public class CadastradorClienteIndividualImpl implements CadastrarClienteIndivid
 		repositorio.salvar(clienteIndividual);
 	}
 
+	public Identificacao getIdentificacao() {
+		return identificacao;
+	}
+
 }

@@ -10,4 +10,6 @@ public interface CadastrarCliente {
 	public void solicitarInformacoesUsuario();
 	public void setCliente(Cliente cliente);
 	
+	public Identificacao getIdentificacao();
+	
 }
