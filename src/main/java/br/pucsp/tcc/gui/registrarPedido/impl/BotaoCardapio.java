@@ -12,7 +12,7 @@ import br.pucsp.tcc.modelo.ItemCardapio;
 
 public class BotaoCardapio extends JButton {
 
-	private ItemCardapio itemCardapio;  //  @jve:decl-index=0:
+	private ItemCardapio itemCardapio;
 	private RegistrarPedidos registradorPedidos;
 	
 	public BotaoCardapio(ItemCardapio itemCardapio, RegistrarPedidos registradorPedidos) {

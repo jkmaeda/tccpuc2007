@@ -21,7 +21,7 @@ import java.util.List;
 public class RegistradorPedidosGui 
 	implements RegistrarPedidosGui {
 
-	private RegistrarPedidos registradorPedidos;  //  @jve:decl-index=0:
+	private RegistrarPedidos registradorPedidos;
 	private JFrame jFrame = null;
 	private JPanel jContentPane = null;
 	private JPanel jPanelCENTER = null;
