@@ -15,9 +15,9 @@ public class TestRepositorioItemCardapioJDBC extends TestCase {
 	public void testBuscarItemCardapioPorNome() {
 		RepositorioItemCardapio repositorio = new RepositorioItemCardapioJDBC();
 		ItemCardapio itemEsperado = new ItemCardapio();
-		itemEsperado.setNome("coca-cola");
-		itemEsperado.setPreco(4.50);		
-		ItemCardapio itemObtido = repositorio.buscarPorNome("coca-cola");
+		itemEsperado.setNome("Coca-Cola");
+		itemEsperado.setPreco(2.0);		
+		ItemCardapio itemObtido = repositorio.buscarPorNome(itemEsperado.getNome());
 		assertEquals(itemEsperado.getNome(), itemObtido.getNome());
 		assertEquals(itemEsperado.getPreco(), itemObtido.getPreco());
 	}

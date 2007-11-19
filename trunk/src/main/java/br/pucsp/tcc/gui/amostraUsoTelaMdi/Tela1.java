@@ -44,7 +44,7 @@ public class Tela1 {
 	 */
 	private Mdi getJFrame() {
 		if (jFrame == null) {
-			jFrame = FactorySingletonMdi.Contruir();
+			jFrame = FactorySingletonMdi.Construir();
 //			jFrame.setSize(new Dimension(355, 184));
 			jFrame.setContentPane(getJContentPane());
 		}

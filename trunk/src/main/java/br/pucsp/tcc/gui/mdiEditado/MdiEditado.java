@@ -19,6 +19,7 @@ import javax.swing.JButton;
 
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 
+import br.pucsp.tcc.aplicacao.ComandaDigital;
 import br.pucsp.tcc.gui.mdi.Mdi;
 
 public class MdiEditado implements Mdi {
@@ -32,12 +33,12 @@ public class MdiEditado implements Mdi {
 	private JButton jButtonGerenciamentoDeClientes = null;
 	private JButton jButtonGerenciamentoDeConta = null;
 	private JButton jButtonPreferencias = null;
+	private ComandaDigital comandaDigital;
 	
 	public MdiEditado() {
 		try {
 			UIManager.setLookAndFeel(new WindowsLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		pilha = getPilha();
@@ -79,12 +80,17 @@ public class MdiEditado implements Mdi {
 		if(visivel) {
 			if(pilha.isEmpty()) {
 				getJFrame().dispose();
+//				getJPanel().removeAll();
+//				getJFrame().setVisible(visivel);
 			}
 			else {
 				jContentPane = pilha.lastElement();
+				getJPanel().removeAll();
 				getJPanel().add(jContentPane, BorderLayout.CENTER);
 				getJFrame().setTitle(jContentPane.getName());
-				getJFrame().setVisible(visivel);
+				getJFrame().repaint();
+//				getJFrame().printAll(getJFrame().getGraphics());
+				getJFrame().setVisible(true);
 			}
 		}
 		else {
@@ -161,7 +167,7 @@ public class MdiEditado implements Mdi {
 			jButtonGerenciamentoDePedidos
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
-							System.out.println("Gerenciamento de Pedidos.");
+							comandaDigital.registrarPedido();
 						}
 					});
 		}
@@ -188,7 +194,7 @@ public class MdiEditado implements Mdi {
 			jButtonGerenciamentoDeClientes
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
-							System.out.println("Gerenciamento de Clientes.");
+							comandaDigital.cadastrarCliente();
 						}
 					});
 		}
@@ -215,8 +221,7 @@ public class MdiEditado implements Mdi {
 			jButtonGerenciamentoDeConta
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
-							System.out.println("Gerenciamento de Conta.");
-						}
+							comandaDigital.fecharConta();						}
 					});
 		}
 		return jButtonGerenciamentoDeConta;
@@ -241,11 +246,15 @@ public class MdiEditado implements Mdi {
 			jButtonPreferencias.setFocusPainted(false);
 			jButtonPreferencias.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("Preferências.");
+					System.out.println("Preferências.");//TODO implementar preferências
 				}
 			});
 		}
 		return jButtonPreferencias;
+	}
+
+	public void setComandaDigital(ComandaDigital comandaDigital) {
+		this.comandaDigital = comandaDigital;
 	}
 
 }

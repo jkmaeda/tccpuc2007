@@ -1,5 +1,6 @@
 package br.pucsp.tcc.repositorio;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,66 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 	
 	private LeitorImagem leitorImagem = LeitorImagemFactory.get();
 	
+	public void editar(ClienteIndividual c) {
+
+		try {
+			String sql = "update cliente set nome = ?, cpf = ? where clienteID = ?";
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, c.getNome());
+			stmt.setString(2, c.getCpf());
+			stmt.setInt(3, c.getId());
+//			stmt.setInt(3, rs.getInt("clienteID"));
+			stmt.execute();						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		///////////////////////////////////////
+//		String sql = "update cliente set (?,?,?)";
+//		RepositorioConta repositorioConta = new RepositorioContaJDBC();
+//		ClienteIndividual cliente = (ClienteIndividual)c;
+//		int clienteID = -1;
+//		try {						 			 		
+//			conn = DBConnection.getConnection();			
+//			stmt = conn.prepareStatement(sql);
+//			
+//			// verifica se existe conta para salvar a conta
+//			if (cliente.getConta() != null) {
+//				int contaID = repositorioConta.salvar(cliente.getConta());
+//				stmt.setInt(1, contaID);
+//			} else {				
+//				stmt.setString(1, null);
+//			}
+//			
+//			// salva a identificação do cliente
+////			ImpressaoDigital identificacao = (ImpressaoDigital)cliente.getIdentificacao();
+////			byte [] imageBytes = leitorImagem.converter(identificacao.getInfo()); 
+////			stmt.setBytes(2, imageBytes);
+//			
+//			// salva a foto do cliente
+////			if (cliente.getFoto() != null) {
+////				stmt.setBytes(3, leitorImagem.converter(cliente.getFoto()));
+////			} else {
+////				stmt.setBytes(3, null);
+////			}
+//						
+//			stmt.setString(2, cliente.getNome());
+//			stmt.setString(3, cliente.getCpf());
+//			stmt.execute();
+//			
+//			// recupera o cliente criado
+////			sql = "select max(clienteID) as clienteID from Cliente";
+////			stmt = conn.prepareStatement(sql);
+////			rs = stmt.executeQuery();
+////			rs.next();
+////			clienteID = rs.getInt("clienteID");
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+////		return clienteID;
+	}
+		
 	public int salvar(Cliente c) {
 		String sql = "insert into cliente values (?,?,?,?,?,1)";
 		RepositorioConta repositorioConta = new RepositorioContaJDBC();
@@ -124,6 +185,37 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 		}
 		return ret;
 	}
+
+	public ClienteIndividual obterCliente(Identificacao identificacao) {
+		String sql = "select top 1 * from cliente where cast(identificacao as varbinary(max)) = cast(? as varbinary(max))";
+		ClienteIndividual ret = null;			
+		RepositorioConta repConta = new RepositorioContaJDBC();
+		ImpressaoDigital digital = (ImpressaoDigital)identificacao;
+		byte [] imageBytes = leitorImagem.converter(digital.getInfo());		
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setBytes(1, imageBytes);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				ret = new ClienteIndividual();
+				ret.setId(rs.getInt("clienteID"));				
+				ret.setConta(repConta.obterConta(rs.getInt("contaID")));							
+				// recupera a identificação
+				ret.setIdentificacao(new ImpressaoDigital(leitorImagem.converter(rs.getBytes("identificacao"))));
+				// recupera a foto
+				if (rs.getBytes("foto") != null) {
+					ret.setFoto(leitorImagem.converter(rs.getBytes("foto")));
+				} 
+				ret.setCpf(rs.getString("cpf"));
+				ret.setNome(rs.getString("nome"));																	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
 	public Cliente obterPorNome(String nome) {
 		String sql = "select * from Cliente where nome like ?";
 		ClienteIndividual ret = null;			
@@ -168,7 +260,8 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 		boolean ret = false;
 		String sql = "select top 1 * from cliente where cast(identificacao as varbinary(max)) = cast(? as varbinary(max))";
 		ImpressaoDigital digital = (ImpressaoDigital)identificacao;
-		byte [] imageBytes = leitorImagem.converter(digital.getInfo()); 
+		Image imageObtida = digital.getInfo();
+		byte [] imageBytes = leitorImagem.converter(imageObtida); 
 		try {
 			conn = DBConnection.getConnection();
 			stmt = conn.prepareStatement(sql);

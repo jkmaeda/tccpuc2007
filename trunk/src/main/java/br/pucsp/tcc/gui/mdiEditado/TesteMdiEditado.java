@@ -24,7 +24,7 @@ public class TesteMdiEditado {
 	 */
 	private Mdi getJFrame() {
 		if (jFrame == null) {
-			jFrame = FactorySingletonMdi.Contruir();
+			jFrame = FactorySingletonMdi.Construir();
 //			jFrame.setSize(new Dimension(307, 154));
 			jFrame.setContentPane(getJContentPane());
 			jFrame.setVisible(true);

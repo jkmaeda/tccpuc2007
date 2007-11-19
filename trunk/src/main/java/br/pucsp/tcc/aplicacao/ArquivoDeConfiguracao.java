@@ -11,7 +11,7 @@ public class ArquivoDeConfiguracao {
 	
 	private static Properties properties;
 	
-	public static Properties getPeoperties() {
+	public static Properties getProperties() {
 		if(properties == null) {
 			properties = new Properties();
 			try {

@@ -1,28 +1,27 @@
 package br.pucsp.tcc.gui.registrarPedido.impl;
 
-import br.pucsp.tcc.gui.registrarPedido.RegistrarPedidos;
-import br.pucsp.tcc.modelo.Cardapio;
-import br.pucsp.tcc.modelo.ItemCardapio;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import br.pucsp.tcc.gui.mdi.FactorySingletonMdi;
+import br.pucsp.tcc.gui.mdi.Mdi;
+import br.pucsp.tcc.gui.registrarPedido.RegistrarPedidos;
+import br.pucsp.tcc.modelo.Cardapio;
+import br.pucsp.tcc.modelo.ItemCardapio;
+
 public class RegistradorPedidosGui 
 	implements RegistrarPedidosGui {
 
-	private RegistrarPedidos registradorPedidos;
-	private JFrame jFrame = null;
+	private RegistrarPedidos registradorPedidos;  //  @jve:decl-index=0:
+	private Mdi jFrame = null;
 	private JPanel jContentPane = null;
 	private JPanel jPanelCENTER = null;
 	private GridLayout gridLayout;
@@ -49,7 +48,7 @@ public class RegistradorPedidosGui
 	private JButton getJButtonFinalizarPedido() {
 		if(jButtonFinalizarPedido == null) {
 			jButtonFinalizarPedido = new JButton();
-			jButtonFinalizarPedido.setText("Finalizar");
+			jButtonFinalizarPedido.setText("Finalizar Pedido");
 			jButtonFinalizarPedido.setMinimumSize(new Dimension(100, 60));
 			jButtonFinalizarPedido.setPreferredSize(new Dimension(100, 60));
 			jButtonFinalizarPedido.addActionListener(new AcaoBotaoFinalizar());			
@@ -67,7 +66,7 @@ public class RegistradorPedidosGui
 
 	public RegistradorPedidosGui() {
 		jFrame = getJFrame();
-		centralizar(jFrame);
+//		centralizar(jFrame);
 	}
 	
 	public void exibir() {
@@ -83,8 +82,8 @@ public class RegistradorPedidosGui
 		gridLayout.setRows(itensCardapio.size());
 		jPanelCENTER.setLayout(gridLayout);
 		for(ItemCardapio item : itensCardapio) {
-			BotaoCardapio botaoCardapio = new BotaoCardapio(item, registradorPedidos);
-			getJPanelCENTER().add(botaoCardapio);
+			JPanel itemCardapioVisual = new ItemCardapioVisual(item, registradorPedidos);
+			getJPanelCENTER().add(itemCardapioVisual);
 		}
 		getJFrame().setVisible(true);
 	}
@@ -96,11 +95,10 @@ public class RegistradorPedidosGui
 	 * 	
 	 * @return javax.swing.JFrame	
 	 */
-	private JFrame getJFrame() {
+	private Mdi getJFrame() {
 		if (jFrame == null) {
-			jFrame = new JFrame();
-			jFrame.setSize(new Dimension(400, 650));
-			jFrame.setTitle("Cardápio");
+			jFrame = FactorySingletonMdi.Construir();
+//			jFrame.setSize(new Dimension(400, 650));
 			jFrame.setContentPane(getJContentPane());
 		}
 		return jFrame;
@@ -117,6 +115,7 @@ public class RegistradorPedidosGui
 			borderLayout.setHgap(5);
 			borderLayout.setVgap(5);
 			jContentPane = new JPanel();
+			jContentPane.setName("Cardápio");
 			jContentPane.setLayout(borderLayout);
 			jContentPane.add(getJScrollPane(), BorderLayout.CENTER);
 			jContentPane.add(new JPanel(), BorderLayout.NORTH);
@@ -144,18 +143,11 @@ public class RegistradorPedidosGui
 		return jPanelCENTER;
 	}
 	
-	private void centralizar(Component component){
-  	    Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-  	    Dimension compSize = component.getSize();
-  	    int centerX = (screenDim.width - compSize.width) >> 1;
-  	    int centerY = (screenDim.height - compSize.height) >> 1;
-  	    component.setLocation(centerX, centerY);
-	}
-	
 	public class AcaoBotaoFinalizar implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			registradorPedidos.fecharPedido();
+			getJFrame().dispose();
 		}
 		
 	}

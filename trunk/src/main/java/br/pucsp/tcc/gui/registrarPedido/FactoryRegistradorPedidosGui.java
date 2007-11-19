@@ -8,7 +8,7 @@ import br.pucsp.tcc.gui.registrarPedido.impl.RegistrarPedidosGui;
 public class FactoryRegistradorPedidosGui {
 	
 	public RegistrarPedidosGui fabricarRegistrador(RegistrarPedidos registradorPedidos) {
-		Properties properties = ArquivoDeConfiguracao.getPeoperties();
+		Properties properties = ArquivoDeConfiguracao.getProperties();
 		String fullyQualifiedName = properties.getProperty("registradorPedidosGui");
 	    RegistrarPedidosGui registradorPedidosGui = null;
 	    try {
