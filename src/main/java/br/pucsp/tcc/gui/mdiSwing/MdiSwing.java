@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import br.pucsp.tcc.aplicacao.ComandaDigital;
 import br.pucsp.tcc.gui.mdi.Mdi;
 
 import java.awt.Dimension;
@@ -19,7 +20,6 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-import javax.swing.JScrollPane;
 
 public class MdiSwing implements Mdi {
 
@@ -33,12 +33,12 @@ public class MdiSwing implements Mdi {
 	private JButton jButtonPreferencias = null;
 	private JButton jButtonGerenciamentoDePedidos = null;
 	private JButton jButtonGerenciamentoDeContas = null;
-	private JScrollPane jScrollPane = null;
+	private JPanel jPanel = null;
+	private ComandaDigital comandaDigital;
 	public MdiSwing() {
 		try {
 			UIManager.setLookAndFeel(new WindowsLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		pilha = getPilha();
@@ -82,7 +82,8 @@ public class MdiSwing implements Mdi {
 			}
 			else {
 				jContentPane = pilha.lastElement();
-				getJScrollPane().setViewportView(jContentPane);
+				getJContentPane().removeAll();
+				getJContentPane().add(jContentPane, BorderLayout.CENTER);
 				getJFrame().setTitle(jContentPane.getName());
 				getJFrame().setVisible(visivel);
 			}
@@ -109,7 +110,7 @@ public class MdiSwing implements Mdi {
 		if (jSplitPane == null) {
 			jSplitPane = new JSplitPane();
 			jSplitPane.setLeftComponent(getJPanelLEFT());
-			jSplitPane.setRightComponent(getJScrollPane());
+			jSplitPane.setRightComponent(getJContentPane());
 			jSplitPane.setOneTouchExpandable(true);
 		}
 		return jSplitPane;
@@ -164,6 +165,12 @@ public class MdiSwing implements Mdi {
 		if (jButtonGerenciamentoDeClientes == null) {
 			jButtonGerenciamentoDeClientes = new JButton();
 			jButtonGerenciamentoDeClientes.setText("Gerenciamento de Clientes");
+			jButtonGerenciamentoDeClientes
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							comandaDigital.cadastrarCliente();
+						}
+					});
 		}
 		return jButtonGerenciamentoDeClientes;
 	}
@@ -177,6 +184,11 @@ public class MdiSwing implements Mdi {
 		if (jButtonPreferencias == null) {
 			jButtonPreferencias = new JButton();
 			jButtonPreferencias.setText("Preferências");
+			jButtonPreferencias.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("Que preferências???");//TODO inventar alguma preferência
+				}
+			});
 		}
 		return jButtonPreferencias;
 	}
@@ -190,6 +202,12 @@ public class MdiSwing implements Mdi {
 		if (jButtonGerenciamentoDePedidos == null) {
 			jButtonGerenciamentoDePedidos = new JButton();
 			jButtonGerenciamentoDePedidos.setText("Gerenciamento de Pedidos");
+			jButtonGerenciamentoDePedidos
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							comandaDigital.registrarPedido();
+						}
+					});
 		}
 		return jButtonGerenciamentoDePedidos;
 	}
@@ -203,6 +221,12 @@ public class MdiSwing implements Mdi {
 		if (jButtonGerenciamentoDeContas == null) {
 			jButtonGerenciamentoDeContas = new JButton();
 			jButtonGerenciamentoDeContas.setText("Gerenciamento de Contas");
+			jButtonGerenciamentoDeContas
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							comandaDigital.fecharConta();
+						}
+					});
 		}
 		return jButtonGerenciamentoDeContas;
 	}
@@ -220,11 +244,15 @@ public class MdiSwing implements Mdi {
 	 * 	
 	 * @return javax.swing.JScrollPane	
 	 */
-	private JScrollPane getJScrollPane() {
-		if (jScrollPane == null) {
-			jScrollPane = new JScrollPane();
+	private JPanel getJContentPane() {
+		if (jPanel == null) {
+			jPanel = new JPanel(new BorderLayout());
 		}
-		return jScrollPane;
+		return jPanel;
+	}
+
+	public void setComandaDigital(ComandaDigital comandaDigital) {
+		this.comandaDigital = comandaDigital;
 	}
 
 }

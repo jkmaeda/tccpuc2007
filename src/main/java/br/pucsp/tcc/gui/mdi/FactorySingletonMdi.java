@@ -8,7 +8,7 @@ public class FactorySingletonMdi {
 
 	private static Mdi mdi = null;
 	
-	public static Mdi Contruir() {
+	public static Mdi Construir() {
 		if(mdi == null) {
 			mdi = fabricarMdi();
 		}
@@ -16,7 +16,7 @@ public class FactorySingletonMdi {
 	}
 	
 	private static Mdi fabricarMdi() {
-		Properties properties = ArquivoDeConfiguracao.getPeoperties();
+		Properties properties = ArquivoDeConfiguracao.getProperties();
 		String fullyQualifiedName = properties.getProperty("mdi");
 		mdi = null;
 		try {

@@ -11,7 +11,7 @@ public class CadastradorCliente {
 	}
 	
 	public void cadastrar(Identificacao identificacao) {
-		CadastrarCliente cadastradorCliente = factoryCadastradorCliente.fabricarCadastradorCliente();
+		CadastramentoCliente cadastradorCliente = factoryCadastradorCliente.fabricarCadastradorCliente();
 		cadastradorCliente.setIdentificacao(identificacao);
 		cadastradorCliente.solicitarInformacoesUsuario();
 	}

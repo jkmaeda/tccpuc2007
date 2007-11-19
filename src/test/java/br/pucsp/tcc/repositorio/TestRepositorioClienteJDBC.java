@@ -82,4 +82,31 @@ public class TestRepositorioClienteJDBC extends TestCase
 		boolean valorObtido = repositorio.existeCliente(identificacao);
 		assertTrue(valorObtido);
 	}
+	
+	public void testEditarCliente()
+	{		
+//		Image info = ImpressaoDigitalMock.digital1.getInfo();		
+//		ImpressaoDigital identificacao = new ImpressaoDigital(info);
+//		
+//		ClienteIndividual clienteEsperado = new ClienteIndividual();
+//		
+//		clienteEsperado.setIdentificacao(identificacao);
+//		clienteEsperado.setNome("cliente de teste com impressão digital");
+//		clienteEsperado.setCpf("72226562354");
+				
+		RepositorioCliente repositorio = new RepositorioClienteJDBC();
+		
+//		int idEsperado = repositorio.salvar(clienteEsperado);
+
+		ClienteIndividual clienteEsperado = repositorio.obterCliente(ImpressaoDigitalMock.digital1);
+		
+		clienteEsperado.setNome("nome alterado");
+		
+		repositorio.editar(clienteEsperado);
+		
+		ClienteIndividual clienteObtido = (ClienteIndividual) repositorio.obterCliente(ImpressaoDigitalMock.digital1);
+		
+		assertEquals(clienteEsperado.getNome(), clienteObtido.getNome());
+		assertEquals(clienteEsperado.getCpf(), clienteObtido.getCpf());		
+	}
 }

@@ -1,5 +1,6 @@
 package br.pucsp.tcc.controle;
 
+import br.pucsp.tcc.exception.ClienteNaoEncontrado;
 import br.pucsp.tcc.exception.IdentificacaoInvalidaException;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.ImpressaoDigital;
@@ -24,5 +25,8 @@ public interface GerenciadorCliente
      *      esteja cadastrada em outro cliente
      */
     ClienteIndividual cadastrarClienteIndividual(ImpressaoDigital digital, String nome)
-        throws IdentificacaoInvalidaException;
+    throws IdentificacaoInvalidaException;
+    
+    ClienteIndividual editarClienteIndividual(ClienteIndividual clienteIndividual)
+    throws ClienteNaoEncontrado;
 }

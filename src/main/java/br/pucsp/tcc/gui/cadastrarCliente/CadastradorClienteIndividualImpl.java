@@ -1,16 +1,20 @@
 package br.pucsp.tcc.gui.cadastrarCliente;
 
+import br.pucsp.tcc.controle.impl.GerenciadorClienteImpl;
+import br.pucsp.tcc.exception.ClienteNaoEncontrado;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
 
-public class CadastradorClienteIndividualImpl implements CadastrarClienteIndividual {
+public class CadastradorClienteIndividualImpl implements CadastramentoClienteIndividual {
 
 	private Identificacao identificacao;
 	private String nome;
 	private ClienteIndividual clienteIndividual;
+	private RepositorioCliente repositorioCliente;
+	private int id;
 	
 	public CadastradorClienteIndividualImpl() {
 		clienteIndividual = new ClienteIndividual();
@@ -19,9 +23,35 @@ public class CadastradorClienteIndividualImpl implements CadastrarClienteIndivid
 	public void solicitarInformacoesUsuario() {
 		FactoryTelaCadastro factoryTelaCadastro = new FactoryTelaCadastro();
 		TelaCadastro telaCadastro = factoryTelaCadastro.fabricarTelaCadastro(this);
+		if(isClienteCadastrado()) {
+			System.out.println("cliente cadastrado");
+			clienteIndividual = getRepositorioCliente().obterCliente(identificacao);
+			this.setIdentificacao(clienteIndividual.getIdentificacao());
+			this.setNome(clienteIndividual.getNome());
+			this.setId(clienteIndividual.getId());
+			telaCadastro.setNome(clienteIndividual.getNome());
+			telaCadastro.editarCliente();
+		}
 		telaCadastro.exibir();
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private boolean isClienteCadastrado() {
+		RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
+		boolean estaCadastrado = repositorioCliente.existeCliente(identificacao);
+		return estaCadastrado;
+	}
+	
+	private RepositorioCliente getRepositorioCliente() {
+		if(repositorioCliente == null) {
+			repositorioCliente = new FabricaRepositorio().getRepCliente();
+		}
+		return repositorioCliente;
+	}
+
 	public void setIdentificacao(Identificacao identificacao) {
 		this.identificacao = identificacao;
 	}
@@ -45,6 +75,18 @@ public class CadastradorClienteIndividualImpl implements CadastrarClienteIndivid
 
 	public Identificacao getIdentificacao() {
 		return identificacao;
+	}
+
+	public void editarCadastro() {
+		clienteIndividual.setId(id);
+		clienteIndividual.setNome(nome);
+		clienteIndividual.setIdentificacao(identificacao);
+		GerenciadorClienteImpl gerenciadorClienteImpl = new GerenciadorClienteImpl();
+		try {
+			gerenciadorClienteImpl.editarClienteIndividual(clienteIndividual);
+		} catch (ClienteNaoEncontrado e) {
+			e.printStackTrace();
+		}
 	}
 
 }

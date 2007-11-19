@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.pucsp.tcc.gui.cadastrarCliente.CadastrarClienteIndividual;
+import br.pucsp.tcc.gui.cadastrarCliente.CadastramentoClienteIndividual;
 import br.pucsp.tcc.gui.cadastrarCliente.TelaCadastro;
 import br.pucsp.tcc.gui.componentesPersonalizados.MyJTextField;
 import br.pucsp.tcc.gui.mdi.FactorySingletonMdi;
@@ -20,21 +20,17 @@ import javax.swing.JTextField;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
-import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JScrollPane;
-
-import com.sun.org.apache.bcel.internal.generic.DMUL;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 
-	private CadastrarClienteIndividual cadastradorClienteIndividual;
+	private CadastramentoClienteIndividual cadastradorClienteIndividual;
 	private JPanel jContentPane = null;
 	private Mdi jFrame = null;
 	private JPanel jPanelCENTER = null;
@@ -73,7 +69,12 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 	private JPanel jPanelFormText = null;
 	private JScrollPane jScrollPaneDigital = null;
 	private JPanel jPanelCenter = null;
-	public CadastroClienteIndividualGui(CadastrarClienteIndividual cadastradorClienteIndividual) {
+	private ActionListener acaoBotao = null;
+	private JPanel jPanelBotoes = null;
+	private JPanel jPanelCenterBotoes = null;
+	private JButton jButtonCancelar = null;
+	
+	public CadastroClienteIndividualGui(CadastramentoClienteIndividual cadastradorClienteIndividual) {
 		super();
 		this.cadastradorClienteIndividual = cadastradorClienteIndividual;
 		initialize();
@@ -98,14 +99,24 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 		cadastradorClienteIndividual.salvarCadastro();
 		fecharTela();
 	}
+
+	public void confirmarEdicao() {
+		cadastradorClienteIndividual.setNome(jTextFieldNome.getText());
+		cadastradorClienteIndividual.editarCadastro();
+		fecharTela();
+	}
+
+	public void cancelar() {
+		fecharTela();
+	}
 	
 	private Mdi getJFrame() {
 		if(jFrame  == null) {
 //			jFrame = SingletonMdiEditado;
 //			jFrame.setSize(400, 150);
 //			jFrame.setTitle("Cadastrar Cliente");
-			jFrame = FactorySingletonMdi.Contruir();
-			jFrame.setContentPane(getJContentPane());//FIXME TODO
+			jFrame = FactorySingletonMdi.Construir();
+			jFrame.setContentPane(getJContentPane());
 //			centralizar(jFrame);
 		}
 		return jFrame;
@@ -139,7 +150,7 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 			jPanelCENTER.setLayout(borderLayout);
 			jPanelCENTER.add(getJPanelNamedForm(), BorderLayout.NORTH);
 			jPanelCENTER.add(getJPanelNamedImpressaoDigital(), BorderLayout.CENTER);
-			jPanelCENTER.add(getJButtonOk(), java.awt.BorderLayout.SOUTH);
+			jPanelCENTER.add(getJPanelBotoes(), BorderLayout.SOUTH);
 		}
 		return jPanelCENTER;
 	}
@@ -185,12 +196,19 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 	private JButton getJButtonOk() {
 		if(jButtonOk == null) {
 			jButtonOk  = new JButton();
-			jButtonOk.setText("OK");
-			jButtonOk.addActionListener(new AcaoBotaoOk(this));
+			jButtonOk.setText("Cadastrar");
+			jButtonOk.addActionListener(getAcaoBotao());
 		}
 		return jButtonOk;
 	}
 	
+	private ActionListener getAcaoBotao() {
+		if(acaoBotao == null) {
+			acaoBotao = new AcaoBotaoCadastrar(this);
+		}
+		return acaoBotao;
+	}
+
 	private void fecharTela() {
 		jFrame.dispose();
 	}
@@ -619,7 +637,7 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 	private JPanel getJPanelNamedImpressaoDigital() {
 		if (jPanelNamedImpressaoDigital == null) {
 			BorderLayout borderLayout4 = new BorderLayout();
-			borderLayout4.setVgap(10);
+			borderLayout4.setVgap(3);
 			borderLayout4.setHgap(15);
 			jPanelNamedImpressaoDigital = new JPanel();
 			jPanelNamedImpressaoDigital.setBorder(BorderFactory.createTitledBorder(null, "Impressão Digital", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
@@ -676,16 +694,71 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 		return jPanelCenter;
 	}
 
+	/**
+	 * This method initializes jPanelBotoes	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanelBotoes() {
+		if (jPanelBotoes == null) {
+			BorderLayout borderLayout5 = new BorderLayout();
+			borderLayout5.setHgap(40);
+			jPanelBotoes = new JPanel();
+			jPanelBotoes.setLayout(borderLayout5);
+			jPanelBotoes.add(getJPanelCenterBotoes(), BorderLayout.CENTER);
+			jPanelBotoes.add(new JPanel(), BorderLayout.WEST);
+			jPanelBotoes.add(new JPanel(), BorderLayout.EAST);
+		}
+		return jPanelBotoes;
+	}
+
+	/**
+	 * This method initializes jPanelCenterBotoes	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanelCenterBotoes() {
+		if (jPanelCenterBotoes == null) {
+			GridLayout gridLayout3 = new GridLayout();
+			gridLayout3.setRows(1);
+			gridLayout3.setHgap(50);
+			gridLayout3.setColumns(2);
+			jPanelCenterBotoes = new JPanel();
+			jPanelCenterBotoes.setLayout(gridLayout3);
+			jPanelCenterBotoes.add(getJButtonOk(), null);
+			jPanelCenterBotoes.add(getJButtonCancelar(), null);
+		}
+		return jPanelCenterBotoes;
+	}
+
+	/**
+	 * This method initializes jButtonCancelar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButtonCancelar() {
+		if (jButtonCancelar == null) {
+			jButtonCancelar = new JButton();
+			jButtonCancelar.setText("Cancelar");
+			jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					cancelar();
+				}
+			});
+		}
+		return jButtonCancelar;
+	}
+
 	public static void main(String[] args) {
 		CadastroClienteIndividualGui cadastroClienteIndividualGui = new CadastroClienteIndividualGui(null);
 		cadastroClienteIndividualGui.exibir();
 	}
 	
-	class AcaoBotaoOk implements ActionListener {
+	class AcaoBotaoCadastrar implements ActionListener {
 		
 		private TelaCadastro telaCadastro;
 		
-		public AcaoBotaoOk(TelaCadastro telaCadastro) {
+		public AcaoBotaoCadastrar(TelaCadastro telaCadastro) {
 			this.telaCadastro = telaCadastro;
 		}
 		
@@ -693,6 +766,32 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 			telaCadastro.confirmarCadastro();
 		}
 		
+	}
+	
+	class AcaoBotaoEditar implements ActionListener {
+		
+		private TelaCadastro telaCadastro;
+		
+		public AcaoBotaoEditar(TelaCadastro telaCadastro) {
+			this.telaCadastro = telaCadastro;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("botao editar clicado");
+			telaCadastro.confirmarEdicao();
+		}
+		
+	}
+
+	public void setNome(String nome) {
+		jTextFieldNome.setText(nome);
+	}
+
+	public void editarCliente() {
+		getJButtonOk().setText("Editar");
+		getJButtonOk().removeActionListener(acaoBotao);
+		acaoBotao = new AcaoBotaoEditar(this);
+		getJButtonOk().addActionListener(acaoBotao);
 	}
 	
 }
