@@ -11,37 +11,41 @@ import junit.framework.TestCase;
 
 public class TestRepositorioContaJDBC extends TestCase {
 
+	
+	
 	public void testSalvarConta() throws Exception 
 	{
-		Conta conta = new Conta();
-		
-		conta.setObservacao("Esta é uma conta de exemplo " +
+		//ITEM CARDAPIO
+		ItemCardapio itemCardapioEsperado = new ItemCardapio();
+		itemCardapioEsperado.setDescricao("Item para ser testado no JUnit");
+		itemCardapioEsperado.setNome("Item teste JUnit");
+		itemCardapioEsperado.setPreco(2.00);
+		// ITEM PEDIDO
+		ItemPedido itemPedidoEsperado = new ItemPedido(itemCardapioEsperado);
+		itemPedidoEsperado.setQuantidade(3);
+		// PEDIDO
+		Pedido pedidoEsperado = new Pedido();
+		pedidoEsperado.adicionarPedido(itemPedidoEsperado);
+		// CONTA
+		Conta contaEsperada = new Conta();
+		contaEsperada.setObservacao("Esta é uma conta de exemplo " +
 				"criada pelo eclipse e com pedidos");
-		
-		List<Pedido> pedidos = null;
-		Pedido pedido = null;
-		List<ItemPedido> itensPedido = null;
-		ItemPedido itemPedido = null;
-		ItemCardapio itemCardapio = null;
-		
-		pedidos = new ArrayList<Pedido>();
-		pedido = new Pedido();
-		itensPedido = new ArrayList<ItemPedido>();
-		itemCardapio = new ItemCardapio();
-		itemCardapio.setId(4);		
-		
-		itemPedido = new ItemPedido(itemCardapio);
-		
-		itemPedido.setItemCardapio(itemCardapio);
-		itemPedido.setQuantidade(1);
-		itensPedido.add(itemPedido);
-		pedido.setItensPedido(itensPedido);
-		
-		pedidos.add(pedido);		
-		conta.setPedidos(pedidos);
+		contaEsperada.adicionarPedido(pedidoEsperado);
 				
 		RepositorioConta repositorio = new RepositorioContaJDBC();
-		repositorio.salvar(conta);
+		int idConta = repositorio.salvar(contaEsperada);
+
+		Conta contaObtida = repositorio.obterConta(idConta);
+
+		assertEquals(contaEsperada.saldo(), contaObtida.saldo());
+		Pedido pedidoObtido = contaObtida.getPedidos().get(0);
+		ItemPedido itemPedidoObtido = pedidoObtido.getItensPedido().get(0);
+		assertEquals(itemPedidoEsperado.getQuantidade(), itemPedidoObtido.getQuantidade());
+		
+		ItemCardapio itemCardapioObtido = itemPedidoObtido.getItemCardapio();
+		assertEquals(itemCardapioEsperado.getNome(), itemCardapioObtido.getNome());
+		assertEquals(itemCardapioEsperado.getPreco(), itemCardapioObtido.getPreco());
+		assertEquals(itemCardapioEsperado.getDescricao(), itemCardapioObtido.getDescricao());
 	}
 	
 	public void testObterContaPorID()
