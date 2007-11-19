@@ -1,7 +1,12 @@
 package br.pucsp.tcc.gui.cadastrarCliente;
 
-public interface FactoryCadastradorCliente {
+public class FactoryCadastradorCliente {
 
-	public CadastrarCliente fabricarCadastradorCliente();
+	private FactoryCadastradorCliente() {}
 	
+	public static CadastramentoCliente fabricarCadastradorCliente() {
+		CadastramentoCliente cadastradorCliente = new CadastradorClienteIndividualImpl();
+		return cadastradorCliente;
+	}
+
 }
