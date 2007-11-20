@@ -104,6 +104,7 @@ public class RepositorioItemCardapioJDBC implements RepositorioItemCardapio {
 			rs = stmt.executeQuery();
 			if (rs.next()) {
 				ret = new ItemCardapio();
+				ret.setId(rs.getInt("itemCardapioId"));
 				ret.setNome(rs.getString("nome"));
 				ret.setPreco(rs.getDouble("preco"));
 				ret.setDescricao(rs.getString("descricao"));

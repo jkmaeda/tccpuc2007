@@ -3,17 +3,18 @@ package br.pucsp.tcc.gui.registrarPedido;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.pucsp.tcc.controle.impl.GerenciadorContaImpl;
-import br.pucsp.tcc.controle.impl.GerenciadorPedidoImpl;
+import br.pucsp.tcc.controle.GerenciadorConta;
 import br.pucsp.tcc.exception.OperacaoInvalidaException;
 import br.pucsp.tcc.gui.registrarPedido.impl.RegistrarPedidosGui;
 import br.pucsp.tcc.modelo.Cardapio;
 import br.pucsp.tcc.modelo.Cliente;
+import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.ItemCardapio;
 import br.pucsp.tcc.modelo.ItemPedido;
 import br.pucsp.tcc.modelo.Pedido;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCardapio;
+import br.pucsp.tcc.repositorio.RepositorioConta;
 
 public class RegistradorPedidos 
 	implements RegistrarPedidos {
@@ -31,13 +32,13 @@ public class RegistradorPedidos
 	}
 
 	public void abrirPedido(Cliente cliente) {
-		GerenciadorContaImpl gerenciadorContaImpl = new GerenciadorContaImpl();
-		try {
-			gerenciadorContaImpl.abrirConta(cliente);
-		} catch (OperacaoInvalidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		GerenciadorContaImpl gerenciadorContaImpl = new GerenciadorContaImpl();
+//		try {
+//			gerenciadorContaImpl.abrirConta(cliente);
+//		} catch (OperacaoInvalidaException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		this.cliente = cliente;
 		pedido = new Pedido();
 	}
@@ -56,13 +57,17 @@ public class RegistradorPedidos
 	}
 	
 	public void fecharPedido() {
-		GerenciadorPedidoImpl gerenciadorPedidoImpl = new GerenciadorPedidoImpl();
-		try {
-			gerenciadorPedidoImpl.registrarPedido(cliente, pedido);
-		} catch (OperacaoInvalidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		RepositorioConta repositorioConta = new FabricaRepositorio().getRepConta();
+		Conta conta = cliente.getConta();
+		conta.adicionarPedido(pedido);
+		repositorioConta.salvar(conta);
+//		GerenciadorPedidoImpl gerenciadorPedidoImpl = new GerenciadorPedidoImpl();
+//		try {
+//			gerenciadorPedidoImpl.registrarPedido(cliente, pedido);
+//		} catch (OperacaoInvalidaException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 //		Conta conta = cliente.getConta();

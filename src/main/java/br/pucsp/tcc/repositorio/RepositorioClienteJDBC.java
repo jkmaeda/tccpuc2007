@@ -25,12 +25,19 @@ public class RepositorioClienteJDBC implements RepositorioCliente
 	public void editar(ClienteIndividual c) {
 
 		try {
-			String sql = "update cliente set nome = ?, cpf = ? where clienteID = ?";
+			String sql = "update cliente set contaId = ?, nome = ?, cpf = ? where clienteID = ?";
 			conn = DBConnection.getConnection();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, c.getNome());
-			stmt.setString(2, c.getCpf());
-			stmt.setInt(3, c.getId());
+			stmt = conn.prepareStatement(sql);// verifica se existe conta para salvar a conta
+			if (c.getConta() != null) {
+				RepositorioConta repositorioConta = new FabricaRepositorio().getRepConta();
+				int contaID = repositorioConta.salvar(c.getConta());
+				stmt.setInt(1, contaID);
+			} else {				
+				stmt.setString(1, null);
+			}
+			stmt.setString(2, c.getNome());
+			stmt.setString(3, c.getCpf());
+			stmt.setInt(4, c.getId());
 //			stmt.setInt(3, rs.getInt("clienteID"));
 			stmt.execute();						
 		} catch (Exception e) {

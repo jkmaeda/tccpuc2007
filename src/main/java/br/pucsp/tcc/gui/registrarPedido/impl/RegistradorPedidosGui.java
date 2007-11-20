@@ -16,6 +16,7 @@ import br.pucsp.tcc.gui.mdi.Mdi;
 import br.pucsp.tcc.gui.registrarPedido.RegistrarPedidos;
 import br.pucsp.tcc.modelo.Cardapio;
 import br.pucsp.tcc.modelo.ItemCardapio;
+import java.awt.GridBagLayout;
 
 public class RegistradorPedidosGui 
 	implements RegistrarPedidosGui {
@@ -28,15 +29,17 @@ public class RegistradorPedidosGui
 	private JScrollPane jScrollPane = null;
 	private JPanel jPanelFinalizarPedido = null;
 	private JButton jButtonFinalizarPedido = null;
+	private JPanel jPanelBotoes = null;
+	private JButton jButtonCancelar = null;
 	
 	private JPanel getJPanelFinalizarPedido() {
 		if(jPanelFinalizarPedido == null) {
 			jPanelFinalizarPedido = new JPanel();
 			BorderLayout borderLayout = new BorderLayout();
-			borderLayout.setHgap(5);
-			borderLayout.setVgap(5);
+			borderLayout.setHgap(40);
+//			borderLayout.setVgap(5);
 			jPanelFinalizarPedido.setLayout(borderLayout);
-			jPanelFinalizarPedido.add(getJButtonFinalizarPedido(), BorderLayout.CENTER);
+			jPanelFinalizarPedido.add(getJPanelBotoes(), BorderLayout.CENTER);
 			jPanelFinalizarPedido.add(new JPanel(), BorderLayout.EAST);
 			jPanelFinalizarPedido.add(new JPanel(), BorderLayout.WEST);
 			jPanelFinalizarPedido.add(new JPanel(), BorderLayout.NORTH);
@@ -49,8 +52,8 @@ public class RegistradorPedidosGui
 		if(jButtonFinalizarPedido == null) {
 			jButtonFinalizarPedido = new JButton();
 			jButtonFinalizarPedido.setText("Finalizar Pedido");
-			jButtonFinalizarPedido.setMinimumSize(new Dimension(100, 60));
-			jButtonFinalizarPedido.setPreferredSize(new Dimension(100, 60));
+//			jButtonFinalizarPedido.setMinimumSize(new Dimension(100, 60));
+//			jButtonFinalizarPedido.setPreferredSize(new Dimension(100, 60));
 			jButtonFinalizarPedido.addActionListener(new AcaoBotaoFinalizar());			
 		}
 		return jButtonFinalizarPedido;
@@ -70,7 +73,8 @@ public class RegistradorPedidosGui
 	}
 	
 	public void exibir() {
-		getJFrame().setVisible(true);
+//		getJFrame().setVisible(true);
+		FactorySingletonMdi.Construir().setVisible(true);
 	}
 
 	public void setRegistradorPedidos(RegistrarPedidos registradorPedidos) {
@@ -150,6 +154,44 @@ public class RegistradorPedidosGui
 			getJFrame().dispose();
 		}
 		
+	}
+
+	/**
+	 * This method initializes jPanelBotoes	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanelBotoes() {
+		if (jPanelBotoes == null) {
+			GridLayout gridLayout1 = new GridLayout();
+			gridLayout1.setRows(1);
+			gridLayout1.setHgap(50);
+			gridLayout1.setColumns(2);
+			jPanelBotoes = new JPanel();
+			jPanelBotoes.setLayout(gridLayout1);
+			jPanelBotoes.add(getJButtonFinalizarPedido(), null);
+			jPanelBotoes.add(getJButtonCancelar(), null);
+			
+		}
+		return jPanelBotoes;
+	}
+
+	/**
+	 * This method initializes jButtonCancelar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButtonCancelar() {
+		if (jButtonCancelar == null) {
+			jButtonCancelar = new JButton();
+			jButtonCancelar.setText("Cancelar");
+			jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					getJFrame().dispose();
+				}
+			});
+		}
+		return jButtonCancelar;
 	}
 
 }

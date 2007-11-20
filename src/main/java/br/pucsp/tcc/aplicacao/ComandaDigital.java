@@ -6,5 +6,6 @@ public interface ComandaDigital {
 	public void cadastrarCliente();
 	public void registrarPedido();
 	public void fecharConta();
+	public void editarPreferencias();
 	
 }

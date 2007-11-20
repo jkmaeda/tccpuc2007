@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,8 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import br.pucsp.tcc.gui.fecharConta.FechadorDeConta;
 import br.pucsp.tcc.gui.fecharConta.FechamentoDeConta;
 import br.pucsp.tcc.gui.fecharConta.FechamentoDeContaGui;
+import br.pucsp.tcc.gui.formataString.Formatacao;
 import br.pucsp.tcc.gui.mdi.FactorySingletonMdi;
 import br.pucsp.tcc.gui.mdi.Mdi;
 import br.pucsp.tcc.modelo.Cliente;
@@ -27,6 +30,8 @@ import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.ItemPedido;
 import br.pucsp.tcc.modelo.Pedido;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 public class FechadorDeContaGui implements FechamentoDeContaGui {
 
@@ -44,6 +49,9 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 	private JPanel jPanelTotal = null;
 	private JLabel jLabelTotal = null;
 	private FechamentoDeConta fechadorDeConta;
+	private JPanel jPanelBotoes = null;
+	private JPanel jPanelCenterBotoes = null;
+	private JButton jButtonCancelar = null;
 
 	/**
 	 * This method initializes jFrame	
@@ -79,7 +87,8 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 	}
 
 	public void exibir() {
-		getJFrame().setVisible(true);
+//		getJFrame().setVisible(true);
+		FactorySingletonMdi.Construir().setVisible(true);
 	}
 
 	public void setCliente(Cliente cliente) {
@@ -99,7 +108,7 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 			jPanelCENTER.setLayout(borderLayout1);
 			jPanelCENTER.add(getJPanelNome(), BorderLayout.NORTH);
 			jPanelCENTER.add(getJPanelItens(), BorderLayout.CENTER);
-			jPanelCENTER.add(getJButtonFecharConta(), java.awt.BorderLayout.SOUTH);
+			jPanelCENTER.add(getJPanelBotoes(), BorderLayout.SOUTH);
 		}
 		return jPanelCENTER;
 	}
@@ -161,7 +170,12 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 			GridLayout gridLayout = new GridLayout();
 			Conta conta = cliente.getConta();
 			List<Pedido> pedidos = conta.getPedidos();
-			gridLayout.setRows(pedidos.size());
+			if(pedidos.size() == 0) {
+				gridLayout.setRows(1);
+			}
+			else {
+				gridLayout.setRows(pedidos.size());
+			}
 			gridLayout.setColumns(1);
 			jPanelPedidos = new JPanel();
 			jPanelPedidos.setLayout(gridLayout);
@@ -217,12 +231,7 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 	public void setTotal(double total) {
 		String jLabelText = "";
 		String valor = String.valueOf(total);
-		int index = valor.indexOf(".");
-		  int decimalPlace = 2;     
-		  BigDecimal bd = new BigDecimal(total);     
-		  bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);     
-		  total = bd.doubleValue(); 
-		valor = valor.substring(0, index+3);
+		valor = Formatacao.arredondar(valor);
 		jLabelText += valor;
 		getJLabelTotal().setText(jLabelText);
 	}
@@ -271,6 +280,61 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 
 	public void setFechadorDeConta(FechamentoDeConta fechadorDeConta) {
 		this.fechadorDeConta = fechadorDeConta;
+	}
+
+	/**
+	 * This method initializes jPanelBotoes	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanelBotoes() {
+		if (jPanelBotoes == null) {
+			BorderLayout borderLayout3 = new BorderLayout();
+			borderLayout3.setHgap(40);
+			jPanelBotoes = new JPanel();
+			jPanelBotoes.setLayout(borderLayout3);
+			jPanelBotoes.add(getJPanelCenterBotoes(), BorderLayout.CENTER);
+			jPanelBotoes.add(new JPanel(), BorderLayout.WEST);
+			jPanelBotoes.add(new JPanel(), BorderLayout.EAST);
+		}
+		return jPanelBotoes;
+	}
+
+	/**
+	 * This method initializes jPanelCenterBotoes	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanelCenterBotoes() {
+		if (jPanelCenterBotoes == null) {
+			GridLayout gridLayout1 = new GridLayout();
+			gridLayout1.setRows(1);
+			gridLayout1.setHgap(50);
+			gridLayout1.setColumns(2);
+			jPanelCenterBotoes = new JPanel();
+			jPanelCenterBotoes.setLayout(gridLayout1);
+			jPanelCenterBotoes.add(getJButtonFecharConta(), null);
+			jPanelCenterBotoes.add(getJButtonCancelar(), null);
+		}
+		return jPanelCenterBotoes;
+	}
+
+	/**
+	 * This method initializes jButtonCancelar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButtonCancelar() {
+		if (jButtonCancelar == null) {
+			jButtonCancelar = new JButton();
+			jButtonCancelar.setText("Cancelar");
+			jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					jFrame.dispose();
+				}
+			});
+		}
+		return jButtonCancelar;
 	}
 
 }
