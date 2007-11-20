@@ -1,6 +1,5 @@
 package br.pucsp.tcc.gui.fecharConta;
 
-import br.pucsp.tcc.controle.impl.GerenciadorContaImpl;
 import br.pucsp.tcc.exception.OperacaoInvalidaException;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
@@ -9,6 +8,9 @@ import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.modelo.ItemCardapio;
 import br.pucsp.tcc.modelo.ItemPedido;
 import br.pucsp.tcc.modelo.Pedido;
+import br.pucsp.tcc.repositorio.FabricaRepositorio;
+import br.pucsp.tcc.repositorio.RepositorioCliente;
+import br.pucsp.tcc.repositorio.RepositorioConta;
 
 public class FechadorDeConta implements FechamentoDeConta {
 
@@ -26,19 +28,25 @@ public class FechadorDeConta implements FechamentoDeConta {
 	}
 
 	public void fecharConta() {
-		GerenciadorContaImpl contaImpl = new GerenciadorContaImpl();
-		try {
-			contaImpl.fecharConta(cliente);
-		} catch (OperacaoInvalidaException e) {
-			e.printStackTrace();
-		}
+//		Conta conta = new Conta();
+//		RepositorioConta repositorioConta = new FabricaRepositorio().getRepConta();
+//		repositorioConta.salvar(conta);
+		cliente.setConta(new Conta());
+		RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
+		repositorioCliente.editar((ClienteIndividual)cliente);
+//		GerenciadorContaImpl contaImpl = new GerenciadorContaImpl();
+//		try {
+//			contaImpl.fecharConta(cliente);
+//		} catch (OperacaoInvalidaException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private Cliente obterCliente(Identificacao identificacao) {
-//	RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
-//	ClienteIndividual clienteIndividual = repositorioCliente.obterCliente(identificacao);
-//	return clienteIndividual;
-		return inventarCliente(identificacao);
+	RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
+	ClienteIndividual clienteIndividual = repositorioCliente.obterCliente(identificacao);
+	return clienteIndividual;
+//		return inventarCliente(identificacao);
 		//TODO remover o método inventar cliente quano o bd estiver funcionando
 	}
 	

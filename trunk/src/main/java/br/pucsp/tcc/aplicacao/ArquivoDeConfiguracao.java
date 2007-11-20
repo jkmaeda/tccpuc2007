@@ -2,6 +2,7 @@ package br.pucsp.tcc.aplicacao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -25,6 +26,16 @@ public class ArquivoDeConfiguracao {
 			}
 		}
 		return properties;
+	}
+	
+	public static void save() {
+		try {
+			properties.store(new FileOutputStream(path), "Arquivo utilizados pelas factorys da aplicação");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

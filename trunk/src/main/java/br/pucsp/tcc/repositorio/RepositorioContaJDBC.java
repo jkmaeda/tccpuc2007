@@ -20,7 +20,7 @@ public class RepositorioContaJDBC implements RepositorioConta{
 	
 	public int salvar(Conta conta) {
 		String sql = "";
-		int contaID = 0;		
+		int contaID = -1;		
 		try {
 			// cria a conta
 			sql = "insert into Conta values (?)";
@@ -40,29 +40,32 @@ public class RepositorioContaJDBC implements RepositorioConta{
 			// cria os pedidos					
 			List<Pedido> pedidos = conta.getPedidos();	        
 			if (!pedidos.isEmpty()) {
-				for (Pedido pedido : pedidos) {									
-					sql = "insert into Pedido values (?)";
-					stmt = conn.prepareStatement(sql);
-					stmt.setInt(1, contaID);
-					stmt.execute();
-					
-					// recupera o pedido criado					
-					sql = "select max(pedidoID) as pedidoID from Pedido";
-					stmt = conn.prepareStatement(sql);
-					rs = stmt.executeQuery();
-					rs.next();
-					int pedidoID = rs.getInt("PedidoID");
+				for (Pedido pedido : pedidos) {
+					RepositorioPedido repositorioPedido = new FabricaRepositorio().getRepPedido();
+					@SuppressWarnings("unused")
+					int pedidoID = repositorioPedido.salvar(pedido, conta);
+//					sql = "insert into Pedido values (?)";
+//					stmt = conn.prepareStatement(sql);
+//					stmt.setInt(1, contaID);
+//					stmt.execute();
+//					
+//					// recupera o pedido criado					
+//					sql = "select max(pedidoID) as pedidoID from Pedido";
+//					stmt = conn.prepareStatement(sql);
+//					rs = stmt.executeQuery();
+//					rs.next();
+//					int pedidoID = rs.getInt("PedidoID");
 					
 					// cria os itens do pedido
-					for (ItemPedido item : pedido.getItensPedido()) {						
-						sql = "insert into ItemPedido values (?,?,?)";
-						stmt = conn.prepareStatement(sql);
-						stmt.setInt(1, item.getQuantidade());
-						ItemCardapio itemCardapio = item.getItemCardapio();
-						stmt.setInt(2, itemCardapio.getId());
-						stmt.setInt(3, pedidoID);
-						stmt.execute();
-					}
+//					for (ItemPedido item : pedido.getItensPedido()) {
+//						sql = "insert into ItemPedido values (?,?,?)";
+//						stmt = conn.prepareStatement(sql);
+//						stmt.setInt(1, item.getQuantidade());
+//						ItemCardapio itemCardapio = item.getItemCardapio();
+//						stmt.setInt(2, itemCardapio.getId());
+//						stmt.setInt(3, pedidoID);
+//						stmt.execute();
+//					}
 				}
 			}
 			conn.commit();			

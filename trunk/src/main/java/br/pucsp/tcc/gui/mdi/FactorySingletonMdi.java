@@ -15,6 +15,10 @@ public class FactorySingletonMdi {
 		return mdi;
 	}
 	
+	public static void setMdi(Mdi mdiNovo) {
+		mdi = mdiNovo;
+	}
+	
 	private static Mdi fabricarMdi() {
 		Properties properties = ArquivoDeConfiguracao.getProperties();
 		String fullyQualifiedName = properties.getProperty("mdi");

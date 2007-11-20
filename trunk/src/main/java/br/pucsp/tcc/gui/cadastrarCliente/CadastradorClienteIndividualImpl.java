@@ -1,9 +1,9 @@
 package br.pucsp.tcc.gui.cadastrarCliente;
 
-import br.pucsp.tcc.controle.impl.GerenciadorClienteImpl;
 import br.pucsp.tcc.exception.ClienteNaoEncontrado;
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
+import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.Identificacao;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
@@ -65,6 +65,7 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 	}
 	
 	public void salvarCadastro() {
+		clienteIndividual.setConta(new Conta());
 		clienteIndividual.setNome(nome);
 		clienteIndividual.setIdentificacao(identificacao);
 		//TODO realizar persistência do cliente
@@ -81,12 +82,14 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 		clienteIndividual.setId(id);
 		clienteIndividual.setNome(nome);
 		clienteIndividual.setIdentificacao(identificacao);
-		GerenciadorClienteImpl gerenciadorClienteImpl = new GerenciadorClienteImpl();
-		try {
-			gerenciadorClienteImpl.editarClienteIndividual(clienteIndividual);
-		} catch (ClienteNaoEncontrado e) {
-			e.printStackTrace();
-		}
+		RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
+		repositorioCliente.editar(clienteIndividual);
+//		GerenciadorClienteImpl gerenciadorClienteImpl = new GerenciadorClienteImpl();
+//		try {
+//			gerenciadorClienteImpl.editarClienteIndividual(clienteIndividual);
+//		} catch (ClienteNaoEncontrado e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

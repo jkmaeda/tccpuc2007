@@ -91,7 +91,8 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 
 	@Override
 	public void exibir() {
-		getJFrame().setVisible(true);
+//		getJFrame().setVisible(true);
+		FactorySingletonMdi.Construir().setVisible(true);
 	}
 
 	public void confirmarCadastro() {
@@ -134,7 +135,7 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 			jContentPane.add(new JPanel(), BorderLayout.NORTH);
 			jContentPane.add(new JPanel(), BorderLayout.WEST);
 			jContentPane.add(new JPanel(), BorderLayout.EAST);
-			jContentPane.add(new JPanel(), BorderLayout.SOUTH);
+			jContentPane.add(getJPanelBotoes(), BorderLayout.SOUTH);
 			jContentPane.setName("Cadastro de Cliente");
 		}
 		return jContentPane;
@@ -150,7 +151,7 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 			jPanelCENTER.setLayout(borderLayout);
 			jPanelCENTER.add(getJPanelNamedForm(), BorderLayout.NORTH);
 			jPanelCENTER.add(getJPanelNamedImpressaoDigital(), BorderLayout.CENTER);
-			jPanelCENTER.add(getJPanelBotoes(), BorderLayout.SOUTH);
+//			jPanelCENTER.add(getJPanelBotoes(), BorderLayout.SOUTH);
 		}
 		return jPanelCENTER;
 	}
@@ -708,6 +709,8 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 			jPanelBotoes.add(getJPanelCenterBotoes(), BorderLayout.CENTER);
 			jPanelBotoes.add(new JPanel(), BorderLayout.WEST);
 			jPanelBotoes.add(new JPanel(), BorderLayout.EAST);
+			jPanelBotoes.add(new JPanel(), BorderLayout.SOUTH);
+			jPanelBotoes.add(new JPanel(), BorderLayout.NORTH);
 		}
 		return jPanelBotoes;
 	}

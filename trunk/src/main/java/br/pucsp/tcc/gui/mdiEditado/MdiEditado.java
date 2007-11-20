@@ -26,14 +26,14 @@ public class MdiEditado implements Mdi {
 
 	private JFrame jFrame = null;
 	private JPanel jContentPane = null;
-	private Stack<JPanel> pilha = null;
+	private Stack<JPanel> pilha = null;  //  @jve:decl-index=0:
 	private JPanel jPanelMain = null;
 	private JPanel jPanel = null;
 	private JButton jButtonGerenciamentoDePedidos = null;
 	private JButton jButtonGerenciamentoDeClientes = null;
 	private JButton jButtonGerenciamentoDeConta = null;
 	private JButton jButtonPreferencias = null;
-	private ComandaDigital comandaDigital;
+	private ComandaDigital comandaDigital;  //  @jve:decl-index=0:
 	
 	public MdiEditado() {
 		try {
@@ -246,7 +246,7 @@ public class MdiEditado implements Mdi {
 			jButtonPreferencias.setFocusPainted(false);
 			jButtonPreferencias.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("Preferências.");//TODO implementar preferências
+					comandaDigital.editarPreferencias();
 				}
 			});
 		}
@@ -255,6 +255,22 @@ public class MdiEditado implements Mdi {
 
 	public void setComandaDigital(ComandaDigital comandaDigital) {
 		this.comandaDigital = comandaDigital;
+	}
+	
+	public void trocar(Mdi mdi) {
+		mdi.setPilha(pilha);
+		getJFrame().dispose();
+		mdi.setComandaDigital(comandaDigital);
+		mdi.setVisible(true);
+		mdi.dispose();
+	}
+
+	public void setPilha(Stack<JPanel> pilha) {
+		this.pilha = pilha;
+	}
+
+	public String getEstilo() {
+		return Mdi.COLOR;
 	}
 
 }

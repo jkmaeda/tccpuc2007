@@ -60,6 +60,7 @@ public class MdiSwing implements Mdi {
 		if (jFrame == null) {
 			jFrame = new JFrame();
 			jFrame.setContentPane(getJSplitPane());
+			jFrame.setMinimumSize(new Dimension(570, 450));
 			jFrame.setSize(new Dimension(812, 527));
 			centerComponent(jFrame);
 			jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -186,7 +187,7 @@ public class MdiSwing implements Mdi {
 			jButtonPreferencias.setText("Preferências");
 			jButtonPreferencias.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("Que preferências???");//TODO inventar alguma preferência
+					comandaDigital.editarPreferencias();
 				}
 			});
 		}
@@ -253,6 +254,22 @@ public class MdiSwing implements Mdi {
 
 	public void setComandaDigital(ComandaDigital comandaDigital) {
 		this.comandaDigital = comandaDigital;
+	}
+	
+	public void trocar(Mdi mdi) {
+		mdi.setPilha(pilha);
+		getJFrame().dispose();
+		mdi.setComandaDigital(comandaDigital);
+		mdi.setVisible(true);
+		mdi.dispose();
+	}
+
+	public void setPilha(Stack<JPanel> pilha) {
+		this.pilha = pilha;
+	}
+
+	public String getEstilo() {
+		return Mdi.WINDOWS;
 	}
 
 }

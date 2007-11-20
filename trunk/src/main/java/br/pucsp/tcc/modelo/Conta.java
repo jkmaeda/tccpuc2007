@@ -35,7 +35,10 @@ public class Conta
         {
             for(ItemPedido item : pedido.getItensPedido())
             {
-                saldo+= item.getQuantidade() * item.getItemCardapio().getPreco();
+            	int quantidade = item.getQuantidade();
+            	double preco = item.getItemCardapio().getPreco();
+            	double parcial = quantidade * preco;
+                saldo += parcial;
             }
         }
         return saldo;

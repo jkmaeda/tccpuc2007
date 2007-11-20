@@ -66,7 +66,8 @@ public class TelaInfo {
 	}
 
 	public void exibir() {
-		getJFrame().setVisible(true);
+//		getJFrame().setVisible(true);
+		FactorySingletonMdi.Construir().setVisible(true);
 	}
 
 	/**

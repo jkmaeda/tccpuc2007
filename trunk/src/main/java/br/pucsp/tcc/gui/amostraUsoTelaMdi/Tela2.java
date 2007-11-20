@@ -212,7 +212,8 @@ public class Tela2 {
 	}
 
 	public void exibir() {
-		jFrame.setVisible(true);
+//		jFrame.setVisible(true);
+		FactorySingletonMdi.Construir().setVisible(true);
 	}
 
 }

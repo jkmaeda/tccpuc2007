@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import br.pucsp.tcc.gui.componentesPersonalizados.MyJTextField;
+import br.pucsp.tcc.gui.formataString.Formatacao;
 import br.pucsp.tcc.gui.registrarPedido.RegistrarPedidos;
 import br.pucsp.tcc.modelo.ItemCardapio;
 import br.pucsp.tcc.modelo.ItemPedido;
@@ -77,7 +78,12 @@ public class ItemCardapioVisual extends JPanel {
 			jButton = new JButton();
 			jButton.setText(itemCardapio.getNome());
 			jButton.addActionListener(new AcaoBotao());
-			jButton.setToolTipText(itemCardapio.getDescricao());
+			String toolTip = itemCardapio.getDescricao();
+			toolTip += ". R$";
+			String preco = String.valueOf(itemCardapio.getPreco());
+			preco = Formatacao.arredondar(preco);
+			toolTip += preco;
+			jButton.setToolTipText(toolTip);
 		}
 		return jButton;
 	}
