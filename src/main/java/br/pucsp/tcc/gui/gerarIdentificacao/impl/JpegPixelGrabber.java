@@ -9,7 +9,7 @@ public class JpegPixelGrabber
     private int[] m_pixels = null; // will contains either array of
     private int m_iWidth, m_iHeight;
     
-    JpegPixelGrabber(Image img)
+    public JpegPixelGrabber(Image img)
     {
         m_image = img;
         
