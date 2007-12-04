@@ -32,12 +32,10 @@ public class LeitorMicrosoft implements LeitorBiometrico, StatusCallBack, Finger
 	public void finalizar() throws Exception {
 
 	}
-
+	
 	public void iniciar(LeitorBiometricoListener listener) throws Exception {
 		if(!iniciado) {
-			installer = new GrFingerAppletInstaller("", "GrFingerDLLs.zip");
-			installer.copyLicense("GrFingerAppletLicenseAgreement.txt");
-			grFinger = installer.getGrFinger();
+		    this.createGrFingerInstance();
 			grFinger.initializeCapture(this);
 			iniciado = true;
 		}
@@ -80,4 +78,12 @@ public class LeitorMicrosoft implements LeitorBiometrico, StatusCallBack, Finger
 		ImpressaoDigital digital = new ImpressaoDigital(image);
 		this.listener.leituraIdentificacaoFinalizada(digital);
 	}
+	
+	public GrFinger createGrFingerInstance() throws Exception
+    {
+        installer = new GrFingerAppletInstaller("", "GrFingerDLLs.zip");
+        installer.copyLicense("GrFingerAppletLicenseAgreement.txt");
+        grFinger = installer.getGrFinger();
+        return grFinger;
+    }
 }

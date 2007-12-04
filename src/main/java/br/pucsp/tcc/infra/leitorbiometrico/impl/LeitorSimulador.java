@@ -23,7 +23,7 @@ public class LeitorSimulador implements LeitorBiometrico
         logger.info("Finalizando leitor biométrico de simulação");
         this.listener = null;
     }
-
+    
     @Override
     public void iniciar(LeitorBiometricoListener listener) throws Exception
     {
@@ -44,9 +44,16 @@ public class LeitorSimulador implements LeitorBiometrico
     {
         ClassLoader cl = ImpressaoDigitalMock.class.getClassLoader();
         URL res = cl.getResource(String.format("ProcessedSample%d.png", numero));
-        ImageIcon icon = new ImageIcon(res);        
-        ImpressaoDigital digital = new ImpressaoDigital(icon.getImage());
-        return digital;
+        if(res != null)
+        {
+            ImageIcon icon = new ImageIcon(res);
+            ImpressaoDigital digital = new ImpressaoDigital(icon.getImage());
+            return digital;
+        }
+        else
+        {
+            return null;
+        }
     }
     
     static Log logger = LogFactory.getLog(LeitorSimulador.class);
