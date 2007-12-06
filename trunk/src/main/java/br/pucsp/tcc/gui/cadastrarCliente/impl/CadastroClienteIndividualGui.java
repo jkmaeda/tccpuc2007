@@ -97,12 +97,33 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 
 	public void confirmarCadastro() {
 		cadastradorClienteIndividual.setNome(jTextFieldNome.getText());
+		String nascimento = jTextFieldDia.getText();
+		nascimento += "/";
+		nascimento += jTextFieldMes.getText();
+		nascimento += "/";
+		nascimento += jTextFieldAno.getText();
+		if(nascimento.length() != 10) {
+			nascimento = null;
+		}
+		cadastradorClienteIndividual.setNascimento(nascimento);
+		cadastradorClienteIndividual.setTelefoneFixo(jTextFieldTelefoneFixo.getText());
+		cadastradorClienteIndividual.setCelular(jTextFieldCelular.getText());
+		cadastradorClienteIndividual.setEMail(jTextFieldEMail.getText());
 		cadastradorClienteIndividual.salvarCadastro();
 		fecharTela();
 	}
 
 	public void confirmarEdicao() {
 		cadastradorClienteIndividual.setNome(jTextFieldNome.getText());
+		String nascimento = jTextFieldDia.getText();
+		nascimento += "/";
+		nascimento += jTextFieldMes.getText();
+		nascimento += "/";
+		nascimento += jTextFieldAno.getText();
+		cadastradorClienteIndividual.setNascimento(nascimento);
+		cadastradorClienteIndividual.setTelefoneFixo(jTextFieldTelefoneFixo.getText());
+		cadastradorClienteIndividual.setCelular(jTextFieldCelular.getText());
+		cadastradorClienteIndividual.setEMail(jTextFieldEMail.getText());
 		cadastradorClienteIndividual.editarCadastro();
 		fecharTela();
 	}
@@ -788,6 +809,29 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 
 	public void setNome(String nome) {
 		jTextFieldNome.setText(nome);
+	}
+
+	public void setNascimento(String nascimento) {
+		if(nascimento != null) {
+			String dia = nascimento.substring(0, 2);
+			String mes = nascimento.substring(3, 5);
+			String ano = nascimento.substring(6, 10);
+			jTextFieldDia.setText(dia);
+			jTextFieldMes.setText(mes);
+			jTextFieldAno.setText(ano);
+		}
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		jTextFieldTelefoneFixo.setText(telefoneFixo);
+	}
+
+	public void setCelular(String celular) {
+		jTextFieldCelular.setText(celular);
+	}
+
+	public void setEmail(String email) {
+		jTextFieldEMail.setText(email);
 	}
 
 	public void editarCliente() {
