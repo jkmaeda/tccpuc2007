@@ -2,7 +2,7 @@ package br.pucsp.tcc.gui.gerarIdentificacao;
 
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometrico;
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometricoListener;
-import br.pucsp.tcc.infra.leitorbiometricoTeste.LeitorMicrosoft;
+import br.pucsp.tcc.infra.leitorbiometrico.griaule.LeitorMicrosoft;
 import br.pucsp.tcc.modelo.Identificacao;
 
 public class GeradorDeIdentificacao implements GeracaoDeIdentificacao, LeitorBiometricoListener {

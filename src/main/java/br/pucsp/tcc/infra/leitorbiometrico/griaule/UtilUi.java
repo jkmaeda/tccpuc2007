@@ -1,4 +1,4 @@
-package br.pucsp.tcc.infra.leitorbiometricoTeste;
+package br.pucsp.tcc.infra.leitorbiometrico.griaule;
 
 import java.awt.image.BufferedImage;
 

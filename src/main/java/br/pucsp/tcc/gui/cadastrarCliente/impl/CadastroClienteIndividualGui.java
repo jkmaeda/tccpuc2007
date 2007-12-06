@@ -801,7 +801,6 @@ public class CadastroClienteIndividualGui extends Tela implements TelaCadastro {
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("botao editar clicado");
 			telaCadastro.confirmarEdicao();
 		}
 		
