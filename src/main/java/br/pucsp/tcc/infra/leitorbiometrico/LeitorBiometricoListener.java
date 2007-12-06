@@ -7,4 +7,5 @@ public interface LeitorBiometricoListener
 	void leituraIdentificacaoIniciada();
 	
 	void leituraIdentificacaoFinalizada(Identificacao identificacao);
+	
 }
