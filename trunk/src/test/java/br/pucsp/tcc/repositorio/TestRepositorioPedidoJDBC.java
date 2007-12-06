@@ -26,7 +26,7 @@ extends TestCase
 		item = new ItemPedido(ic);
 		
 		// adicionou o refrigerante
-		pedido.adicionarPedido(item);			
+		pedido.adicionarItemPedido(item);			
 		
 		RepositorioPedido rep = new RepositorioPedidoJDBC();
 		rep.salvar(pedido, conta);			

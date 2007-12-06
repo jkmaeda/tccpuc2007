@@ -2,7 +2,7 @@ package br.pucsp.tcc.gui.gerarIdentificacao;
 
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometrico;
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometricoListener;
-import br.pucsp.tcc.infra.leitorbiometrico.impl.LeitorMicrosoft;
+import br.pucsp.tcc.infra.leitorbiometricoTeste.LeitorMicrosoft;
 import br.pucsp.tcc.modelo.Identificacao;
 
 public class GeradorDeIdentificacao implements GeracaoDeIdentificacao, LeitorBiometricoListener {
@@ -16,7 +16,7 @@ public class GeradorDeIdentificacao implements GeracaoDeIdentificacao, LeitorBio
 	}
 	
 	private void inicializarLeitor() {
-		leitor = new LeitorMicrosoft();
+//		leitor = new LeitorMicrosoft();
 		try {
 			leitor.iniciar(this);
 		} catch (Exception e) {

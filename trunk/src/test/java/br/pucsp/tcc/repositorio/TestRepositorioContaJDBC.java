@@ -30,7 +30,7 @@ public class TestRepositorioContaJDBC extends TestCase {
 		itemPedidoEsperado.setQuantidade(3);
 		// PEDIDO
 		Pedido pedidoEsperado = new Pedido();
-		pedidoEsperado.adicionarPedido(itemPedidoEsperado);
+		pedidoEsperado.adicionarItemPedido(itemPedidoEsperado);
 		// CONTA
 		Conta contaEsperada = new Conta();
 		contaEsperada.setObservacao("Esta é uma conta de exemplo " +

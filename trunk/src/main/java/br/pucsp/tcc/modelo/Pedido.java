@@ -23,7 +23,7 @@ public class Pedido
         this.itensPedido = itensPedido;
     }
     
-    public void adicionarPedido(ItemPedido itemPedido) {
+    public void adicionarItemPedido(ItemPedido itemPedido) {
     	itensPedido.add(itemPedido);
     }
     

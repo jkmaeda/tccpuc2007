@@ -52,7 +52,7 @@ public class RegistradorPedidos
 	}
 	
 	public void adicionarItem(ItemPedido itemPedido) {
-		pedido.adicionarPedido(itemPedido);
+		pedido.adicionarItemPedido(itemPedido);
 		System.out.println("item adicionado ao cardapio "+itemPedido.getItemCardapio().getNome());
 	}
 	

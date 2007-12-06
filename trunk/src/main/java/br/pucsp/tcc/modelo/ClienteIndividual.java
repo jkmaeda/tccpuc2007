@@ -8,7 +8,10 @@ import org.apache.commons.logging.LogFactory;
 public class ClienteIndividual extends Cliente
 {    
 	private String nome;
-	private String cpf;
+	private String nascimento;
+	private String telefoneFixo;
+	private String celular;
+	private String email;
 	private Image foto;
     
     public ClienteIndividual() {
@@ -17,18 +20,45 @@ public class ClienteIndividual extends Cliente
     public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public String getEmail() {
+		return email;
 	}
-	public String getCpf() {
-		return cpf;
+
+	public String getNascimento() {
+		return nascimento;
 	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+
+	public String getCelular() {
+		return celular;
 	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
 	public Image getFoto() {
 		return foto;
 	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setNascimento(String nascimento) {
+		this.nascimento = nascimento;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
 	public void setFoto(Image foto) {
 		this.foto = foto;
 	}

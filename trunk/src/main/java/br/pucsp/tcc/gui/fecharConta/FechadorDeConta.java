@@ -5,6 +5,7 @@ import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.Identificacao;
+import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.modelo.ItemCardapio;
 import br.pucsp.tcc.modelo.ItemPedido;
 import br.pucsp.tcc.modelo.Pedido;
@@ -19,7 +20,8 @@ public class FechadorDeConta implements FechamentoDeConta {
 	public void solicitarConfirmacaoFechamentoConta(Identificacao identificacao) {
 		FechamentoDeContaGui fechadorDecontaGui = FactoryFechamentoDeContaGui.criarTela();
 		//TODO resgatar cliente do BD
-		cliente = obterCliente(identificacao);
+		ImpressaoDigital impressaoDigital = (ImpressaoDigital)identificacao;
+		cliente = obterCliente(impressaoDigital.getTemplateId());
 		Conta conta = cliente.getConta();
 		fechadorDecontaGui.setCliente(cliente);
 		fechadorDecontaGui.setFechadorDeConta(this);
@@ -42,9 +44,9 @@ public class FechadorDeConta implements FechamentoDeConta {
 //		}
 	}
 
-	private Cliente obterCliente(Identificacao identificacao) {
+	private Cliente obterCliente(int clienteId) {
 	RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
-	ClienteIndividual clienteIndividual = repositorioCliente.obterCliente(identificacao);
+	ClienteIndividual clienteIndividual = repositorioCliente.obterCliente(clienteId);
 	return clienteIndividual;
 //		return inventarCliente(identificacao);
 		//TODO remover o método inventar cliente quano o bd estiver funcionando
@@ -60,7 +62,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio1.setPreco(12.90);
 			ItemPedido itemPedido1 = new ItemPedido(itemCardapio1);
 			itemPedido1.setQuantidade(1);
-			pedido1.adicionarPedido(itemPedido1);
+			pedido1.adicionarItemPedido(itemPedido1);
 			//Item 2
 			ItemCardapio itemCardapio2 = new ItemCardapio();
 			itemCardapio2.setDescricao("Um produto caro");
@@ -69,7 +71,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio2.setPreco(200.90);
 			ItemPedido itemPedido2 = new ItemPedido(itemCardapio2);
 			itemPedido2.setQuantidade(1);
-			pedido1.adicionarPedido(itemPedido2);
+			pedido1.adicionarItemPedido(itemPedido2);
 			//Item 3
 			ItemCardapio itemCardapio3 = new ItemCardapio();
 			itemCardapio3.setDescricao("Um produto ruim");
@@ -78,7 +80,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio3.setPreco(0.1);
 			ItemPedido itemPedido3 = new ItemPedido(itemCardapio3);
 			itemPedido3.setQuantidade(6);
-			pedido1.adicionarPedido(itemPedido3);
+			pedido1.adicionarItemPedido(itemPedido3);
 			Pedido pedido2 = new Pedido();
 			//Item 4
 			ItemCardapio itemCardapio4 = new ItemCardapio();
@@ -88,7 +90,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio4.setPreco(0.1);
 			ItemPedido itemPedido4 = new ItemPedido(itemCardapio4);
 			itemPedido4.setQuantidade(3);
-			pedido2.adicionarPedido(itemPedido4);
+			pedido2.adicionarItemPedido(itemPedido4);
 			//Item 5
 			ItemCardapio itemCardapio5 = new ItemCardapio();
 			itemCardapio5.setDescricao("Bolo de chocolate");
@@ -97,7 +99,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio5.setPreco(0.1);
 			ItemPedido itemPedido5 = new ItemPedido(itemCardapio5);
 			itemPedido5.setQuantidade(1);
-			pedido2.adicionarPedido(itemPedido5);
+			pedido2.adicionarItemPedido(itemPedido5);
 			//Item 6
 			ItemCardapio itemCardapio6 = new ItemCardapio();
 			itemCardapio6.setDescricao("Sanduiche de frango");
@@ -106,7 +108,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio6.setPreco(0.1);
 			ItemPedido itemPedido6 = new ItemPedido(itemCardapio6);
 			itemPedido6.setQuantidade(5);
-			pedido2.adicionarPedido(itemPedido6);
+			pedido2.adicionarItemPedido(itemPedido6);
 			//Item 7
 			ItemCardapio itemCardapio7 = new ItemCardapio();
 			itemCardapio7.setDescricao("Coca-cola com menos calorias");
@@ -115,7 +117,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio7.setPreco(0.1);
 			ItemPedido itemPedido7 = new ItemPedido(itemCardapio7);
 			itemPedido7.setQuantidade(1);
-			pedido2.adicionarPedido(itemPedido7);
+			pedido2.adicionarItemPedido(itemPedido7);
 			//Item 8
 			ItemCardapio itemCardapio8 = new ItemCardapio();
 			itemCardapio8.setDescricao("Coca-cola gelada ou sem gelo");
@@ -124,7 +126,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio8.setPreco(0.1);
 			ItemPedido itemPedido8 = new ItemPedido(itemCardapio8);
 			itemPedido8.setQuantidade(1);
-			pedido2.adicionarPedido(itemPedido8);
+			pedido2.adicionarItemPedido(itemPedido8);
 			//Item 9
 			ItemCardapio itemCardapio9 = new ItemCardapio();
 			itemCardapio9.setDescricao("Soda Antártica");
@@ -133,7 +135,7 @@ public class FechadorDeConta implements FechamentoDeConta {
 			itemCardapio9.setPreco(0.1);
 			ItemPedido itemPedido9 = new ItemPedido(itemCardapio9);
 			itemPedido9.setQuantidade(3);
-			pedido2.adicionarPedido(itemPedido9);
+			pedido2.adicionarItemPedido(itemPedido9);
 			
 			Conta conta = new Conta();
 			conta.adicionarPedido(pedido1);

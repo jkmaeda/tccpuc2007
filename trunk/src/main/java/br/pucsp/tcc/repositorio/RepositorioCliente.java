@@ -16,4 +16,6 @@ public interface RepositorioCliente
     public boolean existeCliente(Identificacao identificacao);
 	public ClienteIndividual obterCliente(Identificacao identificacao);
 	public void editar(ClienteIndividual c);
+	public boolean existeCliente(int templateId);
+	public ClienteIndividual obterCliente(int templateId);
 }

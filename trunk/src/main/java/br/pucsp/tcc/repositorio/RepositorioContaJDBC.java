@@ -42,8 +42,11 @@ public class RepositorioContaJDBC implements RepositorioConta{
 			if (!pedidos.isEmpty()) {
 				for (Pedido pedido : pedidos) {
 					RepositorioPedido repositorioPedido = new FabricaRepositorio().getRepPedido();
-					@SuppressWarnings("unused")
-					int pedidoID = repositorioPedido.salvar(pedido, conta);
+					if(pedido.getId() == 0) {
+//					System.out.println(pedido.getItensPedido().get(0).getItemCardapio().getNome());
+						@SuppressWarnings("unused")
+						int pedidoID = repositorioPedido.salvar(pedido, conta);
+					}
 //					sql = "insert into Pedido values (?)";
 //					stmt = conn.prepareStatement(sql);
 //					stmt.setInt(1, contaID);
