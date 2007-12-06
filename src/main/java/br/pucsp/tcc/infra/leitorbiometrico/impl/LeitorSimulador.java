@@ -47,7 +47,7 @@ public class LeitorSimulador implements LeitorBiometrico
         if(res != null)
         {
             ImageIcon icon = new ImageIcon(res);
-            ImpressaoDigital digital = new ImpressaoDigital(icon.getImage());
+            ImpressaoDigital digital = new ImpressaoDigital(icon.getImage(), 0);
             return digital;
         }
         else
@@ -57,4 +57,9 @@ public class LeitorSimulador implements LeitorBiometrico
     }
     
     static Log logger = LogFactory.getLog(LeitorSimulador.class);
+
+	public void setListener(LeitorBiometricoListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
 }
