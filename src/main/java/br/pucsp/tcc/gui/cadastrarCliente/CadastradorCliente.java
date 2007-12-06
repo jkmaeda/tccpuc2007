@@ -10,7 +10,7 @@ public class CadastradorCliente {
 		this.factoryCadastradorCliente = factoryCadastradorCliente;
 	}
 	
-	public void cadastrar(Identificacao identificacao) {
+	public void cadastrar(Identificacao identificacao, int templateId) {
 		CadastramentoCliente cadastradorCliente = factoryCadastradorCliente.fabricarCadastradorCliente();
 		cadastradorCliente.setIdentificacao(identificacao);
 		cadastradorCliente.solicitarInformacoesUsuario();

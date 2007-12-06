@@ -5,6 +5,7 @@ import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Conta;
 import br.pucsp.tcc.modelo.Identificacao;
+import br.pucsp.tcc.modelo.ImpressaoDigital;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
 
@@ -15,6 +16,11 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 	private ClienteIndividual clienteIndividual;
 	private RepositorioCliente repositorioCliente;
 	private int id;
+	private int templateId;
+	private String celular;
+	private String eMail;
+	private String nascimento;
+	private String telefoneFixo;
 	
 	public CadastradorClienteIndividualImpl() {
 		clienteIndividual = new ClienteIndividual();
@@ -25,11 +31,13 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 		TelaCadastro telaCadastro = factoryTelaCadastro.fabricarTelaCadastro(this);
 		if(isClienteCadastrado()) {
 			System.out.println("cliente cadastrado");
-			clienteIndividual = getRepositorioCliente().obterCliente(identificacao);
-			this.setIdentificacao(clienteIndividual.getIdentificacao());
-			this.setNome(clienteIndividual.getNome());
-			this.setId(clienteIndividual.getId());
+			ClienteIndividual clienteObtido = getRepositorioCliente().obterCliente(templateId);
+			this.setCliente(clienteObtido);
 			telaCadastro.setNome(clienteIndividual.getNome());
+			telaCadastro.setNascimento(clienteIndividual.getNascimento());
+			telaCadastro.setTelefoneFixo(clienteIndividual.getTelefoneFixo());
+			telaCadastro.setCelular(clienteIndividual.getCelular());
+			telaCadastro.setEmail(clienteIndividual.getEmail());
 			telaCadastro.editarCliente();
 		}
 		telaCadastro.exibir();
@@ -41,7 +49,7 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 
 	private boolean isClienteCadastrado() {
 		RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
-		boolean estaCadastrado = repositorioCliente.existeCliente(identificacao);
+		boolean estaCadastrado = repositorioCliente.existeCliente(templateId);
 		return estaCadastrado;
 	}
 	
@@ -54,19 +62,48 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 
 	public void setIdentificacao(Identificacao identificacao) {
 		this.identificacao = identificacao;
+		ImpressaoDigital ip = (ImpressaoDigital)identificacao;
+		this.templateId = ip.getTemplateId();
 	}
 	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public void setEMail(String eMail) {
+		this.eMail = eMail;
+	}
+
+	public void setNascimento(String nascimento) {
+		this.nascimento = nascimento;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
 	
 	public void setCliente(Cliente cliente) {
 		this.clienteIndividual = (ClienteIndividual)cliente;
+		this.setIdentificacao(clienteIndividual.getIdentificacao());
+		this.setNome(clienteIndividual.getNome());
+		this.setNascimento(clienteIndividual.getNascimento());
+		this.setTelefoneFixo(clienteIndividual.getTelefoneFixo());
+		this.setCelular(clienteIndividual.getCelular());
+		this.setEMail(clienteIndividual.getEmail());
+		this.setId(clienteIndividual.getId());
 	}
 	
 	public void salvarCadastro() {
 		clienteIndividual.setConta(new Conta());
 		clienteIndividual.setNome(nome);
+		clienteIndividual.setNascimento(nascimento);
+		clienteIndividual.setTelefoneFixo(telefoneFixo);
+		clienteIndividual.setCelular(celular);
+		clienteIndividual.setEmail(eMail);
 		clienteIndividual.setIdentificacao(identificacao);
 		//TODO realizar persistência do cliente
 		FabricaRepositorio fabricaRepositorio = new FabricaRepositorio();
@@ -81,6 +118,10 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 	public void editarCadastro() {
 		clienteIndividual.setId(id);
 		clienteIndividual.setNome(nome);
+		clienteIndividual.setNascimento(nascimento);
+		clienteIndividual.setTelefoneFixo(telefoneFixo);
+		clienteIndividual.setCelular(celular);
+		clienteIndividual.setEmail(eMail);
 		clienteIndividual.setIdentificacao(identificacao);
 		RepositorioCliente repositorioCliente = new FabricaRepositorio().getRepCliente();
 		repositorioCliente.editar(clienteIndividual);
