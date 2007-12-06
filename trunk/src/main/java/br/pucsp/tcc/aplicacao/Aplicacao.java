@@ -12,7 +12,7 @@ import br.pucsp.tcc.gui.mdi.Mdi;
 import br.pucsp.tcc.gui.registrarPedido.ObterIdentificacaoRegistroPedido;
 import br.pucsp.tcc.gui.telaInicial.TelaInicial;
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometricoListener;
-import br.pucsp.tcc.infra.leitorbiometricoTeste.LeitorMicrosoft;
+import br.pucsp.tcc.infra.leitorbiometrico.griaule.LeitorMicrosoft;
 import br.pucsp.tcc.mock.biometria.ImpressaoDigitalMock;
 import br.pucsp.tcc.modelo.Identificacao;
 

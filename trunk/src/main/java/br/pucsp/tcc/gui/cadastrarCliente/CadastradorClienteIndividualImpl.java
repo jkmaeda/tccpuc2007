@@ -30,7 +30,6 @@ public class CadastradorClienteIndividualImpl implements CadastramentoClienteInd
 		FactoryTelaCadastro factoryTelaCadastro = new FactoryTelaCadastro();
 		TelaCadastro telaCadastro = factoryTelaCadastro.fabricarTelaCadastro(this);
 		if(isClienteCadastrado()) {
-			System.out.println("cliente cadastrado");
 			ClienteIndividual clienteObtido = getRepositorioCliente().obterCliente(templateId);
 			this.setCliente(clienteObtido);
 			telaCadastro.setNome(clienteIndividual.getNome());

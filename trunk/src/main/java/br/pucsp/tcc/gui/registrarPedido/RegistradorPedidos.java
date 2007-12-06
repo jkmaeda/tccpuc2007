@@ -53,7 +53,6 @@ public class RegistradorPedidos
 	
 	public void adicionarItem(ItemPedido itemPedido) {
 		pedido.adicionarItemPedido(itemPedido);
-		System.out.println("item adicionado ao cardapio "+itemPedido.getItemCardapio().getNome());
 	}
 	
 	public void fecharPedido() {
@@ -82,7 +81,6 @@ public class RegistradorPedidos
 		for(ItemPedido cada : itens) {
 			int quantidade = cada.getQuantidade();
 			ItemCardapio itemCardapio = cada.getItemCardapio();
-			System.out.println(itemCardapio.getNome()+" "+quantidade);
 		}
 	}
 

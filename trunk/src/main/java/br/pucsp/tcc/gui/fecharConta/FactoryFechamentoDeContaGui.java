@@ -8,7 +8,6 @@ import br.pucsp.tcc.gui.fecharConta.impl.FechadorDeContaGui;
 public class FactoryFechamentoDeContaGui {
 
 	public static FechamentoDeContaGui criarTela() {
-		System.out.println(FechadorDeContaGui.class);
 		Properties properties = ArquivoDeConfiguracao.getProperties();
 		String fullyQualifiedName = properties.getProperty("fecharContaGui");
 		FechamentoDeContaGui contaGui = null;

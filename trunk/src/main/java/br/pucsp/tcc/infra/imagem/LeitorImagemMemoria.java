@@ -63,7 +63,6 @@ public class LeitorImagemMemoria implements LeitorImagem
         byte[] arrByte = leitor.converter(ss);
         Image image = leitor.converter(arrByte);
         
-        System.out.println("Total length: " + arrByte.length);
         
         JFrame frame = new JFrame();
         frame.setContentPane(new JLabel(new ImageIcon(image)));

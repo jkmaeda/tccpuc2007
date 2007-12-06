@@ -17,7 +17,6 @@ public class SolicitadorRegistrarPedido {
 		clienteIndividual.setNome("Cliente");
 		RegistradorPedidos registradorPedidos = new RegistradorPedidos();
 		registradorPedidos.abrirPedido(clienteIndividual);
-		System.out.println(clienteIndividual);
 	}
 	
 }

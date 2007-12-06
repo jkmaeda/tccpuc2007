@@ -1,4 +1,4 @@
-package br.pucsp.tcc.infra.leitorbiometricoTeste;
+package br.pucsp.tcc.infra.leitorbiometrico.griaule;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -47,7 +47,6 @@ public class LeitorMicrosoft implements LeitorBiometricoListener, UtilUi{
 
 	public void leituraIdentificacaoFinalizada(Identificacao identificacao) {
 		ImpressaoDigital digital = (ImpressaoDigital)identificacao;
-		System.out.println("HAHAHA "+digital.getTemplateId());
 		leitorBiometricoListener.leituraIdentificacaoFinalizada(identificacao);
 		this.leitorBiometricoListener = new ImplementacaoVaziaLeitorBiometricoListener();
 	}
@@ -101,68 +100,68 @@ public class LeitorMicrosoft implements LeitorBiometricoListener, UtilUi{
 	// TELA - TELA - TELA - TELA - TELA - TELA - TELA  //
 	//                                                 //
 	/////////////////////////////////////////////////////
-
-	private JFrame jFrame = null;
-	private JPanel contentPane = null;
-	private JButton buttonEnroll = null;
-	private JButton buttonIdentify = null;
-
-	private JButton getButtonIdentify() {
-		if(buttonIdentify == null) {
-			buttonIdentify = new JButton();
-			buttonIdentify.setText("Identify");
-			buttonIdentify.addActionListener(new ActionListener(){
-
-				public void actionPerformed(ActionEvent e) {
-					fingerprintSDKSample.identify();
-				}
-				
-			});
-		}
-		return buttonIdentify;
-	}
-
-	private JButton getButtonEnroll() {
-		if(buttonEnroll == null) {
-			buttonEnroll = new JButton();
-			buttonEnroll.setText("Enroll");
-			buttonEnroll.addActionListener(new ActionListener(){
-
-				public void actionPerformed(ActionEvent e) {
-					fingerprintSDKSample.enroll();
-				}
-				
-			});
-		}
-		return buttonEnroll;
-	}
-
-	private JPanel getContentPane() {
-		if(contentPane == null) {
-			GridLayout gridLayout = new GridLayout();
-			gridLayout.setRows(2);
-			gridLayout.setColumns(1);
-			contentPane = new JPanel(gridLayout);
-			contentPane.add(getButtonEnroll());
-			contentPane.add(getButtonIdentify());
-		}
-		return contentPane;
-	}
-
-	private JFrame getJFrame() {
-		if(jFrame == null) {
-			jFrame = new JFrame();
-			jFrame.setBounds(100, 100, 200, 300);
-			jFrame.setContentPane(getContentPane());
-			jFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-		           public void windowClosing(java.awt.event.WindowEvent e) {
-		               destroy();
-		               System.exit(0);
-		           }
-			});
-		}
-		return jFrame;
-	}
+//
+//	private JFrame jFrame = null;
+//	private JPanel contentPane = null;
+//	private JButton buttonEnroll = null;
+//	private JButton buttonIdentify = null;
+//
+//	private JButton getButtonIdentify() {
+//		if(buttonIdentify == null) {
+//			buttonIdentify = new JButton();
+//			buttonIdentify.setText("Identify");
+//			buttonIdentify.addActionListener(new ActionListener(){
+//
+//				public void actionPerformed(ActionEvent e) {
+//					fingerprintSDKSample.identify();
+//				}
+//				
+//			});
+//		}
+//		return buttonIdentify;
+//	}
+//
+//	private JButton getButtonEnroll() {
+//		if(buttonEnroll == null) {
+//			buttonEnroll = new JButton();
+//			buttonEnroll.setText("Enroll");
+//			buttonEnroll.addActionListener(new ActionListener(){
+//
+//				public void actionPerformed(ActionEvent e) {
+//					fingerprintSDKSample.enroll();
+//				}
+//				
+//			});
+//		}
+//		return buttonEnroll;
+//	}
+//
+//	private JPanel getContentPane() {
+//		if(contentPane == null) {
+//			GridLayout gridLayout = new GridLayout();
+//			gridLayout.setRows(2);
+//			gridLayout.setColumns(1);
+//			contentPane = new JPanel(gridLayout);
+//			contentPane.add(getButtonEnroll());
+//			contentPane.add(getButtonIdentify());
+//		}
+//		return contentPane;
+//	}
+//
+//	private JFrame getJFrame() {
+//		if(jFrame == null) {
+//			jFrame = new JFrame();
+//			jFrame.setBounds(100, 100, 200, 300);
+//			jFrame.setContentPane(getContentPane());
+//			jFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+//		           public void windowClosing(java.awt.event.WindowEvent e) {
+//		               destroy();
+//		               System.exit(0);
+//		           }
+//			});
+//		}
+//		return jFrame;
+//	}
 	
 	/////////////////////////////////////////////////////
 	//                                                 //
