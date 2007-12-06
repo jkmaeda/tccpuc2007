@@ -53,6 +53,10 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 	private JPanel jPanelCenterBotoes = null;
 	private JButton jButtonCancelar = null;
 
+//	public FechadorDeContaGui() {
+//		getJFrame();
+//	}
+	
 	/**
 	 * This method initializes jFrame	
 	 * 	
@@ -87,8 +91,7 @@ public class FechadorDeContaGui implements FechamentoDeContaGui {
 	}
 
 	public void exibir() {
-//		getJFrame().setVisible(true);
-		FactorySingletonMdi.Construir().setVisible(true);
+		getJFrame().setVisible(true);
 	}
 
 	public void setCliente(Cliente cliente) {

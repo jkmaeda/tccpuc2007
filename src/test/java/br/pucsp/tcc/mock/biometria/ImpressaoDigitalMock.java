@@ -10,7 +10,7 @@ import br.pucsp.tcc.modelo.ImpressaoDigital;
 public class ImpressaoDigitalMock extends ImpressaoDigital
 {
 	public ImpressaoDigitalMock(int numero) {
-		super(getImage(numero));
+		super(getImage(numero), numero);
 	}
 	
 	private static Image getImage(int numero)

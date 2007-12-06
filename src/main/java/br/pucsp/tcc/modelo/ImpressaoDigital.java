@@ -8,9 +8,19 @@ import org.apache.commons.logging.LogFactory;
 public class ImpressaoDigital extends Identificacao
 {	
     private Image info;
+    private int templateId;
     
-    public ImpressaoDigital(Image info) {
+    public int getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(int templateId) {
+		this.templateId = templateId;
+	}
+
+	public ImpressaoDigital(Image info, int templateId2) {
     	this.setInfo(info);
+    	this.setTemplateId(templateId2);
 	}
     
     public Image getInfo() {
