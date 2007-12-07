@@ -1,5 +1,7 @@
 package br.pucsp.tcc.gui.registrarPedido;
 
+import javax.swing.JOptionPane;
+
 import br.pucsp.tcc.infra.leitorbiometrico.LeitorBiometricoListener;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Identificacao;
@@ -25,10 +27,15 @@ public class ObterIdentificacaoRegistroPedido implements
 //	}
 	
 	public void leituraIdentificacaoFinalizada(Identificacao identificacao) {
-		RegistradorPedidos registradorPedidos = new RegistradorPedidos();
 		ImpressaoDigital digital = (ImpressaoDigital)identificacao;
 		ClienteIndividual clienteIndividual = obterCliente(digital.getTemplateId());
-		registradorPedidos.abrirPedido(clienteIndividual);
+		if(clienteIndividual == null) {
+			JOptionPane.showMessageDialog(null, "Cliente não encontrado", "Cliente inexistente", JOptionPane.INFORMATION_MESSAGE, null);
+		}
+		else {
+			RegistradorPedidos registradorPedidos = new RegistradorPedidos();
+			registradorPedidos.abrirPedido(clienteIndividual);
+		}
 	}
 
 	public void leituraIdentificacaoIniciada() {

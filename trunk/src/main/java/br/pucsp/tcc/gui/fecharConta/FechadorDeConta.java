@@ -1,6 +1,7 @@
 package br.pucsp.tcc.gui.fecharConta;
 
-import br.pucsp.tcc.exception.OperacaoInvalidaException;
+import javax.swing.JOptionPane;
+
 import br.pucsp.tcc.modelo.Cliente;
 import br.pucsp.tcc.modelo.ClienteIndividual;
 import br.pucsp.tcc.modelo.Conta;
@@ -11,7 +12,6 @@ import br.pucsp.tcc.modelo.ItemPedido;
 import br.pucsp.tcc.modelo.Pedido;
 import br.pucsp.tcc.repositorio.FabricaRepositorio;
 import br.pucsp.tcc.repositorio.RepositorioCliente;
-import br.pucsp.tcc.repositorio.RepositorioConta;
 
 public class FechadorDeConta implements FechamentoDeConta {
 
@@ -22,11 +22,16 @@ public class FechadorDeConta implements FechamentoDeConta {
 		//TODO resgatar cliente do BD
 		ImpressaoDigital impressaoDigital = (ImpressaoDigital)identificacao;
 		cliente = obterCliente(impressaoDigital.getTemplateId());
-		Conta conta = cliente.getConta();
-		fechadorDecontaGui.setCliente(cliente);
-		fechadorDecontaGui.setFechadorDeConta(this);
-		fechadorDecontaGui.setTotal(conta.saldo());
-		fechadorDecontaGui.exibir();
+		if(cliente == null) {
+			JOptionPane.showMessageDialog(null, "Cliente não encontrado", "Cliente inexistente", JOptionPane.INFORMATION_MESSAGE, null);
+		}
+		else {
+			Conta conta = cliente.getConta();
+			fechadorDecontaGui.setCliente(cliente);
+			fechadorDecontaGui.setFechadorDeConta(this);
+			fechadorDecontaGui.setTotal(conta.saldo());
+			fechadorDecontaGui.exibir();
+		}
 	}
 
 	public void fecharConta() {
