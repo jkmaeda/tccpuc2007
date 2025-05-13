@@ -1,4 +1,4 @@
-# 🍻 Biometric Payment System for Bars and Clubs
+# 🍻 Biometric Payment System
 
 This repository contains the source code and documentation for my **Final Year Project (TCC)** in **Computer Science** at **PUC-SP**, supervised by **Prof. Giorno**. The project was originally hosted on Google Code and has been migrated here for archival purposes.
 
